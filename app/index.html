@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flower delivery service</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="module" src="./script.js"></script>
+  <link rel="stylesheet" type="text/css" href="./styles.css" />
+</head>
+
+<body class="homePage">
+  <header>
+    <div class="navbar-fixed">
+      <nav class="navbar">
+        <div class="nav-wrapper">
+          <div style="
+                padding: 0 16px;
+                display: flex;
+                justify-content: space-between;
+              " class="nav-content">
+            <ul>
+              <li class="logo-container" style="
+                    border: none;
+                    margin-bottom: 20px;
+                    align-items: center;
+                    gap: 10px;
+                    justify-content: space-between;
+                    color: #fff;
+                  ">
+                <i class="material-icons left">spa</i>
+                <a href="./index.html" class="brand-logo" style="
+                      font-size: 2.1rem;
+                      padding: 0;
+                      font-weight: 400;
+                      color: #fff;
+                    ">Flower delivery</a>
+              </li>
+            </ul>
+            <ul id="">
+              <li style="display: flex; width: 100%">
+                <a style="display: flex; gap: 10px" class="waves-effect" href="./shoppingCart.html"><span
+                    id="cartNumber">0</span><i class="material-icons">shopping_cart</i><span
+                    class="hide-on-med-and-down">Cart</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <h5>Flowers</h5>
+      <div class="row">
+        <div id="topRow" style="height: auto; padding-bottom: 0">
+          <div style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0 0.75rem;
+              " class="rowWrapper">
+            <div class="categoriesBar">
+              <a href="#!" style="color: black" data-category="All" class="categoryFilterButton">All
+              </a>
+              <a href="#!" style="color: black" data-category="Flowery fragarant" class="categoryFilterButton">Flowery
+                fragarant
+              </a>
+              <a href="#!" style="color: black" data-category="Bloomwell" class="categoryFilterButton">Bloomwell</a>
+            </div>
+            <div class="selectWrapper" style="display: flex; gap: 10px; align-items: center">
+              <span>Sort by:</span>
+              <!-- Sort by Dropdown Trigger -->
+              <div class="input-field" style="width: auto">
+                <!-- <div class="input-field col s12"></div> -->
+                <select>
+                  <option value="Name" selected>Name</option>
+                  <option value="Price">Price</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="insertHere" class="row">
+        <!-- content will be inserted here -->
+      </div>
+  </main>
+</body>
+
+</html>

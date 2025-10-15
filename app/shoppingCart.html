@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script type="module" src="./script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+  </head>
+  <body class="cartPage">
+    <header>
+      <div class="navbar-fixed">
+        <nav class="navbar">
+          <div class="nav-wrapper">
+            <div
+              style="
+                padding: 0 16px;
+                display: flex;
+                justify-content: space-between;
+              "
+              class="nav-content"
+            >
+              <ul>
+                <li
+                  class="logo-container"
+                  style="
+                    border: none;
+                    margin-bottom: 20px;
+                    align-items: center;
+                    gap: 10px;
+                    justify-content: space-between;
+                    color: #fff;
+                  "
+                >
+                  <i class="material-icons left">spa</i>
+                  <a
+                    href="./index.html"
+                    class="brand-logo"
+                    style="
+                      font-size: 2.1rem;
+                      padding: 0;
+                      font-weight: 400;
+                      color: #fff;
+                    "
+                    >Flower delivery</a
+                  >
+                </li>
+              </ul>
+              <ul id="">
+                <li style="display: flex; width: 100%">
+                  <a
+                    style="display: flex; gap: 10px"
+                    class="waves-effect"
+                    href="./shoppingCart.html"
+                    ><span id="cartNumber">0</span
+                    ><i class="material-icons">shopping_cart</i
+                    ><span class="hide-on-med-and-down">Cart</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main style="padding: 0">
+      <div class="container">
+        <div class="row">
+          <div class="contentWrapper">
+            <div
+              id="contactForm"
+              class="col s12 m6"
+              style="
+                border: 1px solid #e4e4e4;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div class="col s12 m12" style="flex-shrink: 0">
+                <h5 class="section-title">Contact details</h5>
+              </div>
+              <!-- <form style="height: 100%"> -->
+              <div
+                class="formBlock col s12 m12"
+                style="
+                  height: 80%;
+                  align-content: center;
+                  align-items: center;
+                  flex-shrink: 1;
+                "
+              >
+                <div class="input-field col s6 m6">
+                  <input
+                    class="first_name"
+                    id="first_name"
+                    type="text"
+                    required
+                  />
+                  <label for="first_name" class="">First Name</label>
+                </div>
+                <div class="input-field col s6 m6">
+                  <input
+                    class="last_name"
+                    id="last_name"
+                    type="text"
+                    required
+                  />
+                  <label for="last_name">Last Name</label>
+                </div>
+                <div class="input-field col s6 m6">
+                  <input class="phone" id="phone" type="text" />
+                  <label for="phone">Phone</label>
+                </div>
+                <div class="input-field col s6 m6">
+                  <input class="email" id="email" type="text" />
+                  <label for="email">Email</label>
+                </div>
+                <div class="input-field col s12 m12">
+                  <input
+                    class="address"
+                    id="message"
+                    type="text"
+                  ></input>
+                  <label for="message">Address</label>
+                </div>
+              </div>
+              <!-- </form> -->
+            </div>
+
+            <div
+              id="productsInCart"
+              class="col s12 m6"
+              style="border: 1px solid #e4e4e4; overflow: scroll; height: 100%"
+            >
+              <!-- Procudcts are inserted here -->
+            </div>
+          </div>
+        </div>
+        <!-- <hr
+          style="border: none; border-top: 1px solid #e4e4e4; margin: 20px 0"
+        /> -->
+        <div class="row" style="float: right; align-items: center">
+          <span style="width: auto; margin-right: 15px"
+            >Total price:
+            <h5 class='totalPrice' style="display: inline; margin: 0"></h5></span
+          >
+          <a class="waves-effect waves-light btn-large submitOrder disabled">Submit</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

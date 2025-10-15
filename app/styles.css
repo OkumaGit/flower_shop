@@ -1,0 +1,141 @@
+:root {
+  --blockBorder: 1px #d6d6d6 solid;
+  --blackColor: #000000;
+}
+
+.blackColor{
+ color: var(--blackColor)
+}
+
+/* .card-toolbar-actions {
+  width: 30%;
+} */
+
+.logo-container a {
+  color: #fff;
+}
+
+.priceAndQty{
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+
+.card-action{
+  
+align-items: center !important;
+align-content: center !important;
+}
+
+.addToCartButton{
+  margin: auto !important;
+}
+
+.cartQuantity{
+  width: 30% !important;
+}
+
+.card-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidenav .logo-container {
+  padding: 0 16px;
+  height: 64px;
+  line-height: 64px;
+  font-size: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: content-box;
+  background-color: #ee6e73;
+  font-size: 24px;
+}
+
+.categoryFilterButton{
+  padding-right: 10px;
+}
+
+.categoriesBar{
+  width: 30% !important;
+  display: flex !important;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 992px) {
+  .brand-logo{
+    font-size: 1.5rem !important
+  }
+.categoriesBar{
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between;
+}
+.rowWrapper{
+  flex-direction: column !important;
+}
+}
+
+
+
+@media only screen and (min-width: 993px) {
+    body.has-fixed-sidenav {
+        padding-left: 300px;
+    }
+      .contentWrapper{
+     height: 70vh;
+  }
+    .has-fixed-sidenav .navbar-fixed nav.navbar {
+        width: calc(100% - 300px);
+        left: 300px;
+    }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -webkit-appearance: auto;
+    opacity: 1;
+}
+
+/* main {
+  background-color: #F5F5F7;
+} */
+
+body {
+  background-color: #F5F5F7;
+}
+
+/* .columns {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  display: flex;
+  width: 30%;
+  border: var(--blockBorder);
+  padding: 10px;
+}
+
+.flowers {
+  width: 70%;
+  border: var(--blockBorder);
+  padding: 10px;
+}
+
+.nav {
+  border: var(--blockBorder);
+} */
+
+/* 
+
+@media only screen and (max-width: 992px) {
+  main {
+    padding-left: 0;
+  }
+}
