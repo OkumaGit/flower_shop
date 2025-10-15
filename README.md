@@ -1,3 +1,12 @@
+# Flower Delivery Shop 🌸
+E-commerce website for flower delivery service.
+
+## Features
+- Browse flowers catalog
+- Shopping cart functionality
+- Order placement
+- MongoDB database integration
+
 ## Technologies
 - Frontend: HTML, CSS, JavaScript (Materialize CSS)
 - Backend: Node.js, Express
