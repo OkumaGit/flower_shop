@@ -1,6 +1,9 @@
+import config from "../config";
+
 const getProducts = async function getProducts() {
   try {
-    const response = await fetch("http://localhost:4000/api/products");
+    // const response = await fetch("http://localhost:4000/api/products");
+    const response = await fetch(`${config.API_URL}/api/products`);
     const fetchedFlowerData = await response.json();
     return fetchedFlowerData;
   } catch (error) {

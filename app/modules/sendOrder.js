@@ -1,13 +1,17 @@
+import config from "../config";
+
 const sendOrder = async function sendOrder(orderData) {
   console.log("sendOrder function called");
 
   //   const orderData = {
-  //     customerName: "Иван",
+  //     customerName: "Ivory",
   //     items: ["Rose", "Tulip"],
   //     total: 50,
   //   };
 
-  const response = await fetch("http://localhost:4000/api/orders", {
+  // const response = await fetch("http://localhost:4000/api/orders"
+
+  const response = await fetch(`${config.API_URL}/api/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,9 +42,10 @@ document.addEventListener("DOMContentLoaded", function () {
         address: address.value,
         items: inCartFlowerData,
         summPrice: summPrice,
+        date: new Date(),
       };
       sendOrder(orderData);
-      console.log("order is: ", first_name, last_name);
+      console.log("order is: ", orderData);
     });
   }
 });
