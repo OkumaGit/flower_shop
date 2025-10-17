@@ -1,4 +1,4 @@
-import config from "../config";
+import config from "../config.js";
 
 const sendOrder = async function sendOrder(orderData) {
   console.log("sendOrder function called");
