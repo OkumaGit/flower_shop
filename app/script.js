@@ -10,6 +10,11 @@ var inCartFlowerData = JSON.parse(localStorage.getItem("inCartFlowerData"))
 var selectedItem = {};
 //
 
+const sbmtBtn = document.querySelector(".submitOrder");
+sbmtBtn.addEventListener("click", function () {
+  sendOrder(inCartFlowerData, summPrice);
+});
+
 function addFlowersToCart(event) {
   if (event.target.className == "addToCartButton") {
     const inputQty = event.target
@@ -106,7 +111,7 @@ function adjustCardNumber(summ) {
 var summPrice = 0;
 var totalPrice = document.querySelector(".totalPrice");
 function adjustTotalPrice() {
-  const summPrice = 0;
+  let summPrice = 0;
   inCartFlowerData.forEach((item) => {
     summPrice += item.Price * item.Qty;
   });

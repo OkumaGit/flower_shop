@@ -32,16 +32,17 @@ async function start() {
     }
   });
 
+  // POST Orders API
   app.post("/api/orders", async (req, res) => {
     try {
       const order = req.body;
       const result = await db.collection("flower_orders").insertOne(order);
       res.status(201).json(result);
-      console.log("Получили заказ:", req.body);
-      res.json({
-        message: "Заказ получен!",
-        receivedData: req.body,
-      });
+      console.log("Recieved order: ", req.body);
+      // res.json({
+      //   message: "Заказ получен!",
+      //   receivedData: req.body,
+      // });
     } catch (error) {
       console.log(error);
     }

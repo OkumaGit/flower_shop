@@ -3,7 +3,10 @@ import config from "../config.js";
 const getProducts = async function getProducts() {
   try {
     // const response = await fetch("http://localhost:4000/api/products");
+    const startTime = Date.now();
     const response = await fetch(`${config.API_URL}/api/products`);
+    const endTime = Date.now();
+    console.log("fetch time: ", (endTime - startTime) / 1000);
     const fetchedFlowerData = await response.json();
     return fetchedFlowerData;
   } catch (error) {
@@ -119,7 +122,9 @@ const createFlowers = async function createFlowers() {
 
 //EXECUTE initial createFlowers()
 document.addEventListener("DOMContentLoaded", async function () {
-  await createFlowers();
+  if (document.body.classList.contains("homePage")) {
+    await createFlowers();
+  }
 });
 //
 
