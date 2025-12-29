@@ -7,6 +7,9 @@
 # Node modules
 node_modules/
 
+# admin
+admin/
+
 # Logs
 *.log
 npm-debug.log*
@@ -14,3 +17,7 @@ npm-debug.log*
 # OS files
 .DS_Store
 Thumbs.db
+
+# Notes files
+
+Notes.md

@@ -7,6 +7,10 @@
  color: var(--blackColor)
 }
 
+.orderDetailsBlock{
+  padding: 16px;
+}
+
 /* .card-toolbar-actions {
   width: 30%;
 } */
@@ -21,26 +25,43 @@
   align-items: center;
 }
 
-
 .card-action{
-  
 align-items: center !important;
 align-content: center !important;
+text-align: center;
+padding: 12px !important;
+    flex-grow: 1;
+
 }
 
 .addToCartButton{
+  color: #ffab40;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
   margin: auto !important;
+  transition: 0.3s;
+  cursor: pointer;
+  font-weight: 600;
 }
-
+.addToCartButton:hover{
+color: #ffd8a6;
+}
+.addToCartButton:focus{
+  background: transparent;
+}
+    
 .cartQuantity{
   width: 30% !important;
 }
 
 .card-content{
+  padding: 8px 16px !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  flex-grow: 1 !important;
 }
 
 .sidenav .logo-container {
@@ -56,6 +77,9 @@ align-content: center !important;
 
 .categoryFilterButton{
   padding-right: 10px;
+}
+  .categoryFilterButton:hover {
+    text-decoration: underline;
 }
 
 .categoriesBar{
@@ -79,8 +103,6 @@ align-content: center !important;
   flex-direction: column !important;
 }
 }
-
-
 
 @media only screen and (min-width: 993px) {
     body.has-fixed-sidenav {

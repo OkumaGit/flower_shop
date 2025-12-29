@@ -1,36 +1,24 @@
 import config from "../config.js";
+import { sortFilter } from "./sortFilter.js";
 
+// fetchingData from DB
 const getProducts = async function getProducts() {
   try {
     // const response = await fetch("http://localhost:4000/api/products");
     const startTime = Date.now();
+    //
     const response = await fetch(`${config.API_URL}/api/products`);
+    // Time
     const endTime = Date.now();
     console.log("fetch time: ", (endTime - startTime) / 1000);
+    //
     const fetchedFlowerData = await response.json();
     return fetchedFlowerData;
   } catch (error) {
     console.log(error);
   }
 };
-
-//// SORT BY
-// SORT BY RENDER
-let selects;
-document.addEventListener("DOMContentLoaded", function () {
-  selects = document.querySelector("select");
-  //   console.log("Found selects:", selects.length, selects.value);
-  var instances = M.FormSelect.init(selects);
-  console.log("Initialized:", instances.length);
-  // LISTEN FOR CHANGE
-  selects.addEventListener("change", function () {
-    if (selects.value == "Price") {
-      createFlowers();
-    } else if (selects.value == "Name") {
-      createFlowers();
-    }
-  });
-});
+//
 
 // INITIAL RENDER OF ALL FLOWERS
 // LOCAL DB
@@ -66,45 +54,31 @@ let flowerData = [
 ];
 //
 
+const parent = document.getElementById("insertHere");
 const createFlowers = async function createFlowers() {
   flowerData = await getProducts();
-  const parent = document.getElementById("insertHere");
-  //SORT BY PRICE
-  if (selects.value == "Price") {
-    parent.innerHTML = "";
-    flowerData.sort((a, b) => a.Price - b.Price);
+  console.log("flowerData", flowerData);
+  flowerRender(flowerData);
+};
 
-    //SORT BY NAME ALPHABETICAL
-  } else if (selects.value == "Name") {
-    parent.innerHTML = "";
-    flowerData.sort((a, b) => {
-      if (a.Name > b.Name) {
-        return 1;
-      }
-      if (a.Name < b.Name) {
-        return -1;
-      }
-      return 0;
-    });
-  }
-  //
+// RENDERING FLOWERS TO DOM FROM flowerData ARRAY
+let flowerRender = (flowerData) => {
+  parent.innerHTML = "";
 
-  // RENDERING FLOWERS TO DOM FROM flowerData ARRAY
   flowerData.forEach((data) => {
     var flower = document.createElement("div");
-    flower.className = "cardItem col s6 m3";
-    flower.dataset.category = data.Category;
+    flower.className = "cardItem col s6 m2";
+    flower.dataset.category = data.Category; //Set card's category from DB
     flower.innerHTML = `
       <div class="card">
-        <div class="card-image" data-category="Bloomwell">
+        <div class="card-image">
           <img class="cardImage" style="width: 100%" src=${data.Image} />
           <span class="card-title">${data.Name}</span>             
         </div>
         <div class="card-content">
-                <p>$${data.Price}</p>
+                <p class='card-price'>$${data.Price}</p>
                  <input
                   type="number"
-                  id = 'cartQuantity'
                   class="cartQuantity"
                   name="cartQuantity"
                   min="1"
@@ -113,42 +87,21 @@ const createFlowers = async function createFlowers() {
                 />
               </div>
               <div id="card-action" class="card-action">
-                <a id="addToCartButton" class="addToCartButton" href="#">Add to cart</a>
+                <button id="addToCartButton" class="addToCartButton" href="#">Add to cart</button>
               </div>
       </div>`;
     parent.appendChild(flower);
   });
 };
+//
 
-//EXECUTE initial createFlowers()
+// Async DOMCOntentLoaded Listener
 document.addEventListener("DOMContentLoaded", async function () {
+  //EXECUTE initial createFlowers()
   if (document.body.classList.contains("homePage")) {
     await createFlowers();
   }
 });
 //
 
-//CATEGORY SELECT
-document.addEventListener("DOMContentLoaded", function () {
-  document
-    .querySelectorAll(".categoryFilterButton")
-    .forEach((categoryFilterButton) => {
-      //LISTEN FOR CLICK AT categoryFilterButton
-      categoryFilterButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        var buttonCategory = categoryFilterButton.dataset.category;
-        //RENDERING ACCORDING TO .dataset.category
-        document.querySelectorAll(".cardItem").forEach((card) => {
-          if (buttonCategory == card.dataset.category) {
-            card.style.display = "none";
-          } else if (buttonCategory == "All") {
-            card.style.display = "";
-          } else {
-            card.style.display = "";
-          }
-        });
-      });
-    });
-});
-
-export { createFlowers, getProducts, flowerData };
+export { createFlowers, flowerData, flowerRender };

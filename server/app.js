@@ -1,3 +1,5 @@
+//SERVER SIDE
+
 require("dotenv").config();
 const express = require("express");
 const { MongoClient } = require("mongodb");
@@ -17,12 +19,12 @@ async function start() {
 
   const db = client.db("flowers_store");
   const products = db.collection("flowers");
-  //   const orders = db.collection('flower_orders')
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
 
+  // GET Products from DB
   app.get("/api/products", async (req, res) => {
     try {
       const items = await products.find().toArray();
@@ -31,6 +33,20 @@ async function start() {
       console.log(error);
     }
   });
+  //
+
+  // GET ordersList from DB
+  const orders = db.collection("flower_orders");
+  app.get("/api/ordersList", async (req, res) => {
+    try {
+      const ordersList = await orders.find().toArray();
+      res.json(ordersList);
+      // console.log("fetched Orders from DB done");
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  //
 
   // POST Orders API
   app.post("/api/orders", async (req, res) => {
@@ -47,6 +63,7 @@ async function start() {
       console.log(error);
     }
   });
+  //
 }
 
 start();
