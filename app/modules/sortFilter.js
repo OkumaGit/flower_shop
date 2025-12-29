@@ -30,10 +30,12 @@ document.addEventListener("click", function (event) {
   }
 });
 
-document.addEventListener("change", function () {
+document.addEventListener("change", function (event) {
   //STOPPED HERE
   console.log("targetCategory is: ", targetCategory);
-  sortBy(targetCategory);
+  if (!event.target.classList.contains("cartQuantity")) {
+    sortBy(targetCategory);
+  }
 });
 
 let sortFilter = () => {};
