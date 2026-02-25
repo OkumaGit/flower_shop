@@ -1,5 +1,5 @@
-import config from "../config.js";
-import { sortFilter } from "./sortFilter.js";
+import config from '../config.js';
+import { sortFilter } from './sortFilter.js';
 
 // fetchingData from DB
 const getProducts = async function getProducts() {
@@ -10,7 +10,7 @@ const getProducts = async function getProducts() {
     const response = await fetch(`${config.API_URL}/api/products`);
     // Time
     const endTime = Date.now();
-    console.log("fetch time: ", (endTime - startTime) / 1000);
+    console.log('fetch time: ', (endTime - startTime) / 1000);
     //
     const fetchedFlowerData = await response.json();
     return fetchedFlowerData;
@@ -54,20 +54,20 @@ let flowerData = [
 ];
 //
 
-const parent = document.getElementById("insertHere");
+const parent = document.getElementById('insertHere');
 const createFlowers = async function createFlowers() {
   flowerData = await getProducts();
-  console.log("flowerData", flowerData);
+  console.log('flowerData', flowerData);
   flowerRender(flowerData);
 };
 
 // RENDERING FLOWERS TO DOM FROM flowerData ARRAY
 let flowerRender = (flowerData) => {
-  parent.innerHTML = "";
+  parent.innerHTML = '';
 
   flowerData.forEach((data) => {
-    var flower = document.createElement("div");
-    flower.className = "cardItem col s6 m2";
+    var flower = document.createElement('div');
+    flower.className = 'cardItem col s6 m2';
     flower.dataset.category = data.Category; //Set card's category from DB
     flower.innerHTML = `
       <div class="card">
@@ -96,9 +96,9 @@ let flowerRender = (flowerData) => {
 //
 
 // Async DOMCOntentLoaded Listener
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener('DOMContentLoaded', async function () {
   //EXECUTE initial createFlowers()
-  if (document.body.classList.contains("homePage")) {
+  if (document.body.classList.contains('homePage')) {
     await createFlowers();
   }
 });
