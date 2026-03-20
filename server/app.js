@@ -1,4 +1,4 @@
-//SERVER SIDE
+//SERVER SIDE (ROUTES)
 require('dotenv').config();
 const express = require('express');
 const { MongoClient } = require('mongodb');
@@ -22,7 +22,7 @@ async function start() {
     // Saving DB in locals.
     app.locals.db = db;
     //
-    //Adding AUTH to server
+    //Adding AUTH (Routes) to server
     const authRoutes = require('./auth/routes/index.js');
     app.use('/api/auth', authRoutes);
     //
@@ -72,7 +72,12 @@ async function start() {
   }
 }
 
-//App listen
+// //DEFEND ADMIN FOLDER WITH AUTH
+// const auth = require('./auth/middleware/auth');
+// app.use('/admin', auth, express.static('admin'));
+// //
+
+//APP LISTEN
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
