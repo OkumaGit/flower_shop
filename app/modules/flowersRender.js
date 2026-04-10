@@ -8,7 +8,7 @@ const getProducts = async function getProducts() {
     const startTime = Date.now();
     //
     const response = await fetch(`${config.API_URL}/api/products`);
-    // Time
+    //Time
     const endTime = Date.now();
     console.log('fetch time: ', (endTime - startTime) / 1000);
     //
@@ -57,7 +57,6 @@ let flowerData = [
 const parent = document.getElementById('insertHere');
 const createFlowers = async function createFlowers() {
   flowerData = await getProducts();
-  console.log('flowerData', flowerData);
   flowerRender(flowerData);
 };
 

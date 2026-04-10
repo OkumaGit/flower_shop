@@ -5,20 +5,11 @@
 var selectedItem = {};
 //
 
-function addFlowersToCart(
-  event,
-  flowerData,
-  adjustCardNumber,
-  inCartFlowerData
-) {
-  if (event.target.className == "addToCartButton") {
-    const inputQty = event.target
-      .closest(".col")
-      .querySelector(".cartQuantity").value;
+function addFlowersToCart(event, flowerData, adjustCardNumber, inCartFlowerData) {
+  if (event.target.className == 'addToCartButton') {
+    const inputQty = event.target.closest('.col').querySelector('.cartQuantity').value;
     selectedItem = flowerData.find(
-      (item) =>
-        item.Name ===
-        event.target.closest(".card").querySelector(".card-title").textContent
+      (item) => item.Name === event.target.closest('.card').querySelector('.card-title').textContent
     );
 
     // WHEN SIMILAR EXISTS, JUST UPDATE QTY
@@ -28,10 +19,9 @@ function addFlowersToCart(
       selectedItem.Qty = parseInt(inputQty);
       inCartFlowerData.push(selectedItem);
     }
-    localStorage.setItem("inCartFlowerData", JSON.stringify(inCartFlowerData));
+    localStorage.setItem('inCartFlowerData', JSON.stringify(inCartFlowerData));
     adjustCardNumber();
   }
 }
 //
-
 export { addFlowersToCart };

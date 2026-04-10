@@ -92,16 +92,21 @@ color: #ffd8a6;
 
 @media only screen and (max-width: 992px) {
   .brand-logo{
+    display: none !important;
     font-size: 1.5rem !important
   }
-.categoriesBar{
-  width: 100% !important;
-  display: flex !important;
-  justify-content: space-between;
-}
-.rowWrapper{
-  flex-direction: column !important;
-}
+  .card-title{
+    font-size: 18px !important;
+    padding: 8px !important;
+  }
+  .categoriesBar{
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between;
+  }
+  .rowWrapper{
+    flex-direction: column !important;
+  }
 }
 
 @media only screen and (min-width: 993px) {

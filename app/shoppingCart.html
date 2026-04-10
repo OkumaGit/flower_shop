@@ -14,7 +14,6 @@
     />
     <script type="module" src="./script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="./styles.css" />
     <link rel="icon" type="image/png" href="./src/Gemini_Generated_Image_lkrk7xlkrk7xlkrk.png" />
   </head>
@@ -75,7 +74,8 @@
       </div>
     </header>
     <main style="padding: 0">
-      <form class="form" action="/app/orderDetails.html">
+      <!-- <form class="form" action="/app/orderDetails.html"> -->
+        <form class="form">
       <div class="container">
         <div class="row">
           <div class="contentWrapper">
@@ -118,7 +118,7 @@
                     type="text"
                     required
                   />
-                  <label for="last_name">Last Name</label>
+                  <label for="last_name">Last Name *</label>
                 </div>
                 <div class="input-field col s6 m6">
                   <input class="phone" id="phone" type="text" required/>
@@ -126,7 +126,7 @@
                 </div>
                 <div class="input-field col s6 m6">
                   <input class="email" id="email" type="text" required/>
-                  <label for="email">Email</label>
+                  <label for="email">Email *</label>
                 </div>
                 <div class="input-field col s12 m12">
                   <input
@@ -138,7 +138,6 @@
                   <label for="message">Address *</label>
                 </div>
               </div>
-              
             </div>
 
             <div
@@ -156,8 +155,8 @@
         <div class="row" style="float: right; align-items: center">
           <span style="width: auto; margin-right: 15px"
             >Total price:
-            <h5 class='totalPrice' style="display: inline; margin: 0"></h5></span
-          >
+            <h5 class='totalPrice' style="display: inline; margin: 0"></h5>
+          </span>
           <button type="submit" class="waves-effect waves-light btn-large submitOrder disabled">Submit</button>
         </div>
       </div>

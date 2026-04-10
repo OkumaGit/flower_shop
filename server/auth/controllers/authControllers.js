@@ -40,7 +40,7 @@ exports.register = async (req, res) => {
     //
 
     const hashed = await bcrypt.hash(password, 10);
-    const result = await db.collection('users').insertOne({ email, password: hashed });
+    const result = await db.collection('users').insertOne({ email: email, password: hashed });
     const token = jwt.sign({ id: result.insertedId.toString() }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });

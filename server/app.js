@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
+const auth = require('./auth/middleware/auth.js');
 
 const app = express();
 app.use(express.json()); // Must for JSON body read
@@ -27,7 +28,7 @@ async function start() {
     app.use('/api/auth', authRoutes);
     //
 
-    // GET Products from DB
+    // GET PRODUCTS FROM DB
     app.get('/api/products', async (req, res) => {
       try {
         const items = await products.find().toArray();
@@ -38,7 +39,7 @@ async function start() {
     });
     //
 
-    // GET ordersList from DB
+    // GET orderList FROM DB
     const orders = db.collection('flower_orders');
     app.get('/api/ordersList', async (req, res) => {
       try {
@@ -62,6 +63,19 @@ async function start() {
         //   message: "Заказ получен!",
         //   receivedData: req.body,
         // });
+      } catch (error) {
+        console.log(error);
+      }
+    });
+    //
+
+    //DELETE Orders API
+    const orderId = '69127c3e7631c7153702855c';
+    app.delete(`/api/orders/${orderId}`, auth, async (req, res) => {
+      try {
+        const toDelete = req.body;
+        const result = await db.collection('flower_orders').deleteOne(toDelete);
+        res.status(200).json({ message: 'Successfully deleted' }, result);
       } catch (error) {
         console.log(error);
       }

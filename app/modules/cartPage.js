@@ -4,9 +4,9 @@ import { addFlowersToCart } from './addFlowersToCart.js';
 
 //ADD FLOWERS TO CART
 // SUMM AND SAVE FLOWERS IN CART
-let homePage = () => {
-  var summ = JSON.parse(localStorage.getItem('cartNumber'));
-  var inCartFlowerData = JSON.parse(localStorage.getItem('inCartFlowerData'))
+let cartPage = () => {
+  let summ = JSON.parse(localStorage.getItem('cartNumber'));
+  let inCartFlowerData = JSON.parse(localStorage.getItem('inCartFlowerData'))
     ? JSON.parse(localStorage.getItem('inCartFlowerData'))
     : [];
 
@@ -85,21 +85,6 @@ let homePage = () => {
   }
   //
 
-  document.addEventListener('DOMContentLoaded', () => {
-    //CALL AUTH POP-UP
-    const authPopUp = document.querySelector('auth-popup'); //Selecting the auth-popup shadowDom custom tag
-    const authBtn = document.querySelectorAll('.authBtn'); //From header
-    if (authBtn) {
-      authBtn.forEach((btn) => {
-        btn.onclick = () => {
-          if (authPopUp) {
-            authPopUp.open();
-          }
-        };
-      });
-    }
-  });
-
   // RENDER IN SHOPPING CARD
   document.addEventListener('DOMContentLoaded', function () {
     adjustCardNumber();
@@ -150,6 +135,36 @@ let homePage = () => {
     }
   });
   //
+
+  // DEFINE AND SHOW WHICH PAGE WE ARE ATM
+  document.addEventListener('DOMContentLoaded', function () {
+    if (document.body.classList.contains('cartPage')) {
+      adjustTotalPrice(); // UPDATE SUMMARY PRICE IN CART
+      // SUBMIT ORDER
+      const sbmtBtn = document.querySelector('.submitOrder');
+      sbmtBtn.addEventListener('click', async function (event) {
+        event.preventDefault();
+        M.toast({ html: 'orderSent', classes: 'green', displayLength: 3000 });
+        console.log('script from HP.js worked');
+        await sendOrder(inCartFlowerData, summPrice);
+        setTimeout(() => {
+          window.location.href = `./orderDetails.html`;
+        }, 2000);
+      });
+      console.log('we are at CartPage');
+      // LISTEN FOR CHANGE IN INPUT.VALUE IN CART
+      document.getElementById('productsInCart').addEventListener('change', function (event) {
+        //FIND and UPDATE QTY in inCartFlowerData
+        var foundItem = inCartFlowerData.find(
+          (item) => item.Name == event.target.closest('.col').querySelector('.card-title').innerHTML
+        );
+
+        foundItem.Qty = parseInt(event.target.closest('.col').querySelector('#cardQuantity').value);
+        adjustCardNumber();
+      });
+      //
+    }
+  });
 };
 
-export { homePage };
+export { cartPage };
