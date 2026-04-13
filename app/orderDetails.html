@@ -10,59 +10,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
     <script type="module" src="./script.js"></script>
+    <script type="module" src="./modules/components/navBar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="./styles.css" />
     <link rel="icon" type="image/png" href="./src/Gemini_Generated_Image_lkrk7xlkrk7xlkrk.png" />
   </head>
   <body class="orderDetails">
     <header>
-      <div class="navbar-fixed">
-        <nav class="navbar">
-          <div class="nav-wrapper">
-            <div
-              style="padding: 0 16px; display: flex; justify-content: space-between"
-              class="nav-content"
-            >
-              <ul>
-                <li
-                  class="logo-container"
-                  style="
-                    border: none;
-                    margin-bottom: 20px;
-                    align-items: center;
-                    gap: 10px;
-                    justify-content: space-between;
-                    color: #fff;
-                  "
-                >
-                  <i class="material-icons left">spa</i>
-                  <a
-                    href="./index.html"
-                    class="brand-logo"
-                    style="font-size: 2.1rem; padding: 0; font-weight: 400; color: #fff"
-                  >
-                    Flower delivery
-                  </a>
-                </li>
-              </ul>
-              <ul id="">
-                <li style="display: flex; width: 100%">
-                  <a
-                    style="display: flex; gap: 10px"
-                    class="waves-effect"
-                    href="./shoppingCart.html"
-                  >
-                    <span id="cartNumber">0</span>
-                    <i class="material-icons">shopping_cart</i>
-                    <span class="hide-on-med-and-down">Cart</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
+      <nav-bar></nav-bar>
     </header>
     <main style="padding: 0">
       <div class="container">
@@ -73,14 +28,14 @@
               class="col s12 m12"
               style="border: 1px solid #e4e4e4; display: flex; flex-direction: column"
             >
-              <div class="col s12 m12" style="flex-shrink: 0">
+              <div class="col s12 m12">
                 <h5 class="section-title">Order details</h5>
                 <h6>Thank you, your order is successfully confirmed!</h6>
               </div>
             </div>
             <div
               id="orderedProducts"
-              class="col s12 m12"
+              class="col s12 m6"
               style="border: 1px solid #e4e4e4; overflow: scroll"
             >
               <!-- Products are inserted here -->
