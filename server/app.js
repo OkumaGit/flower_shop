@@ -6,10 +6,10 @@ const cors = require('cors');
 const auth = require('./auth/middleware/auth.js');
 const app = express();
 app.use(express.json()); // Must for JSON body read
-app.use(express.static('public'));
+// app.use(express.static('public'));
 const path = require('path');
 // app.use(express.static(path.join(__dirname, '../app')));
-// app.use('/admin', express.static(path.join(__dirname, '../admin')));
+app.use('/admin', express.static(path.join(__dirname, '../app/admin')));
 app.use(cors());
 
 const client = new MongoClient(process.env.MONGO_URI);
