@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const adminBtn = document.querySelectorAll('.adminBtn');
   adminBtn.forEach((btn) => {
     btn.onclick = () => {
-      window.location.href = `/admin/admin.html`;
+      window.location.href = `./admin/admin.html`;
     };
   });
   //

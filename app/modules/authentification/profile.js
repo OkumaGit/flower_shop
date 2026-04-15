@@ -15,7 +15,7 @@ const profile = async function profile() {
 
     //REDIRECTING IF 200
     if (response.ok) {
-      window.location.href = `/admin/admin.html`;
+      window.location.href = `./admin/admin.html`;
     } else {
       console.log('No auth');
     }
