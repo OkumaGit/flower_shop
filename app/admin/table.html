@@ -1,0 +1,519 @@
+<!-- Sushi Orders Dashboard - single-file HTML/CSS/JS
+     Features:
+     - Responsive, accessible table for shop orders
+     - Search, status filter, sorting, pagination
+     - Status badges, action buttons (mark ready, cancel)
+     - Sample data (JS) — replace with your API/data source
+     - No external libs; copy-paste to a file and open in browser
+-->
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sushi Shop — Orders Dashboard</title>
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --muted: #9aa4b2;
+        --accent: #06b6d4;
+        --success: #10b981;
+        --danger: #ef4444;
+        --surface: #0b1220;
+        --glass: rgba(255, 255, 255, 0.03);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #071022 0%, #071028 100%);
+        color: #e6eef6;
+        min-height: 100vh;
+        padding: 28px;
+      }
+      .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0;
+      }
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
+      }
+      .controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .input,
+      select {
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        padding: 8px 10px;
+        border-radius: 8px;
+        color: var(--muted);
+        min-width: 160px;
+      }
+      .btn {
+        background: var(--accent);
+        color: #042026;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+      }
+      .btn.ghost {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+      }
+
+      /* table */
+      .table-wrap {
+        margin-top: 12px;
+        overflow: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 900px;
+      }
+      th,
+      td {
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.03);
+        font-size: 14px;
+      }
+      th {
+        position: sticky;
+        top: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0)
+        );
+        backdrop-filter: blur(2px);
+        z-index: 2;
+        color: var(--muted);
+      }
+      tr:hover td {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0)
+        );
+      }
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* badges */
+      .badge {
+        display: inline-block;
+        padding: 6px 8px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .badge.pending {
+        background: rgba(255, 223, 0, 0.12);
+        color: #ffd43b;
+      }
+      .badge.preparing {
+        background: rgba(6, 182, 212, 0.08);
+        color: var(--accent);
+      }
+      .badge.ready {
+        background: rgba(16, 185, 129, 0.12);
+        color: var(--success);
+      }
+      .badge.cancel {
+        background: rgba(239, 68, 68, 0.12);
+        color: var(--danger);
+      }
+
+      /* actions */
+      .actions {
+        display: flex;
+        gap: 8px;
+      }
+      .action-btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        padding: 6px 8px;
+        border-radius: 8px;
+        color: var(--muted);
+        cursor: pointer;
+      }
+
+      /* responsive */
+      @media (max-width: 900px) {
+        .controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        table {
+          min-width: 760px;
+        }
+      }
+      .pagination {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin-top: 12px;
+      }
+      .page-num {
+        padding: 6px 8px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+      }
+      .page-num.active {
+        background: rgba(255, 255, 255, 0.03);
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <h1>Заказы — Sushi Dashboard</h1>
+          <div class="small">Управление и статус заказов магазина суши</div>
+        </div>
+        <div class="controls">
+          <input
+            id="search"
+            class="input"
+            placeholder="Поиск: номер, имя, адрес, товар..."
+          />
+          <select id="filterStatus" class="input">
+            <option value="">Все статусы</option>
+            <option value="pending">Ожидает</option>
+            <option value="preparing">Готовится</option>
+            <option value="ready">Готов</option>
+            <option value="cancel">Отменён</option>
+          </select>
+          <button id="exportCsv" class="btn">Экспорт CSV</button>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="table-wrap">
+          <table aria-label="Orders table">
+            <thead>
+              <tr>
+                <th data-key="id">Заказ ▴</th>
+                <th data-key="time">Время</th>
+                <th data-key="customer">Клиент</th>
+                <th data-key="items">Товары</th>
+                <th data-key="total">Сумма</th>
+                <th data-key="address">Адрес</th>
+                <th data-key="payment">Оплата</th>
+                <th data-key="status">Статус</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+          "
+        >
+          <div class="small" id="summary"></div>
+          <div>
+            <div class="pagination" id="pagination"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // ===== Sample data =====
+      const ORDERS = [
+        {
+          id: "S-1001",
+          time: "2025-11-20 18:12",
+          customer: "Олег Иванов",
+          items: 3,
+          total: 5200,
+          address: "Regensburg, Markt 12",
+          payment: "Card",
+          status: "pending",
+        },
+        {
+          id: "S-1002",
+          time: "2025-11-20 18:20",
+          customer: "Анна Петрова",
+          items: 2,
+          total: 3400,
+          address: "Regensburg, Domplatz 5",
+          payment: "Cash",
+          status: "preparing",
+        },
+        {
+          id: "S-1003",
+          time: "2025-11-20 18:31",
+          customer: "Иван Назаренко",
+          items: 4,
+          total: 7200,
+          address: "Regensburg, Bahnhofstr. 8",
+          payment: "Card",
+          status: "ready",
+        },
+        {
+          id: "S-1004",
+          time: "2025-11-20 18:40",
+          customer: "Мария К.",
+          items: 1,
+          total: 1200,
+          address: "Regensburg, Gartenweg 2",
+          payment: "Online",
+          status: "cancel",
+        },
+        {
+          id: "S-1005",
+          time: "2025-11-20 18:45",
+          customer: "Team Office",
+          items: 8,
+          total: 15200,
+          address: "Regensburg, Bismarckstr. 36",
+          payment: "Invoice",
+          status: "preparing",
+        },
+        // ... add more rows for testing
+      ];
+
+      // ===== State =====
+      let state = {
+        data: ORDERS.slice(),
+        sortKey: "id",
+        sortAsc: true,
+        q: "",
+        status: "",
+        page: 1,
+        pageSize: 5,
+      };
+
+      // ===== Utilities =====
+      function formatMoney(cents) {
+        // prices already in cents-like integers (use localization if needed)
+        return (cents / 100).toFixed(2).replace(".", ",") + " €";
+      }
+
+      function createBadge(status) {
+        const map = {
+          pending: "Ожидает",
+          preparing: "Готовится",
+          ready: "Готов",
+          cancel: "Отмена",
+        };
+        const cls =
+          {
+            pending: "pending",
+            preparing: "preparing",
+            ready: "ready",
+            cancel: "cancel",
+          }[status] || "pending";
+        return `<span class="badge ${cls}" aria-label="status-${status}">${
+          map[status] || status
+        }</span>`;
+      }
+
+      // ===== Render =====
+      function render() {
+        const tbody = document.getElementById("tbody");
+        let filtered = state.data.filter((r) => {
+          if (state.status && r.status !== state.status) return false;
+          if (!state.q) return true;
+          const q = state.q.toLowerCase();
+          return (
+            r.id.toLowerCase().includes(q) ||
+            r.customer.toLowerCase().includes(q) ||
+            (r.address || "").toLowerCase().includes(q)
+          );
+        });
+
+        // sorting
+        filtered.sort((a, b) => {
+          const k = state.sortKey;
+          const va = a[k];
+          const vb = b[k];
+          if (typeof va === "number" && typeof vb === "number")
+            return state.sortAsc ? va - vb : vb - va;
+          return state.sortAsc
+            ? String(va).localeCompare(String(vb))
+            : String(vb).localeCompare(String(va));
+        });
+
+        // pagination
+        const total = filtered.length;
+        const pages = Math.max(1, Math.ceil(total / state.pageSize));
+        if (state.page > pages) state.page = pages;
+        const start = (state.page - 1) * state.pageSize;
+        const pageItems = filtered.slice(start, start + state.pageSize);
+
+        tbody.innerHTML = pageItems
+          .map(
+            (order) => `<tr>
+    <td><strong>${order.id}</strong></td>
+    <td class="small">${order.time}</td>
+    <td>${order.customer}</td>
+    <td class="small">${order.items}</td>
+    <td>${formatMoney(order.total)}</td>
+    <td class="small">${order.address}</td>
+    <td class="small">${order.payment}</td>
+    <td>${createBadge(order.status)}</td>
+    <td class="actions">
+      <button class="action-btn" onclick="markReady('${
+        order.id
+      }')">Готов</button>
+      <button class="action-btn" onclick="cancel('${order.id}')">Отмена</button>
+    </td>
+  </tr>`
+          )
+          .join("");
+
+        document.getElementById("summary").textContent = `Показано ${
+          start + 1
+        }-${start + pageItems.length} из ${total} заказов`;
+        renderPagination(pages);
+      }
+
+      function renderPagination(pages) {
+        const box = document.getElementById("pagination");
+        box.innerHTML = "";
+        for (let i = 1; i <= pages; i++) {
+          const el = document.createElement("button");
+          el.className = "page-num" + (i === state.page ? " active" : "");
+          el.textContent = i;
+          el.onclick = () => {
+            state.page = i;
+            render();
+          };
+          box.appendChild(el);
+        }
+      }
+
+      // ===== Actions =====
+      function markReady(id) {
+        const idx = state.data.findIndex((r) => r.id === id);
+        if (idx === -1) return;
+        state.data[idx].status = "ready";
+        render();
+      }
+      function cancel(id) {
+        const idx = state.data.findIndex((r) => r.id === id);
+        if (idx === -1) return;
+        state.data[idx].status = "cancel";
+        render();
+      }
+
+      // ===== Events =====
+      document.getElementById("search").addEventListener("input", (e) => {
+        state.q = e.target.value;
+        state.page = 1;
+        render();
+      });
+      document
+        .getElementById("filterStatus")
+        .addEventListener("change", (e) => {
+          state.status = e.target.value;
+          state.page = 1;
+          render();
+        });
+
+      // sorting by clicking headers
+      document.querySelectorAll("th[data-key]").forEach((th) => {
+        th.style.cursor = "pointer";
+        th.addEventListener("click", () => {
+          const key = th.getAttribute("data-key");
+          if (state.sortKey === key) state.sortAsc = !state.sortAsc;
+          else {
+            state.sortKey = key;
+            state.sortAsc = true;
+          }
+          render();
+        });
+      });
+
+      // CSV export
+      function toCSV(rows) {
+        const cols = [
+          "id",
+          "time",
+          "customer",
+          "items",
+          "total",
+          "address",
+          "payment",
+          "status",
+        ];
+        const lines = [cols.join(",")];
+        for (const r of rows) {
+          const vals = cols.map(
+            (c) => '"' + String(r[c] || "").replace(/"/g, '""') + '"'
+          );
+          lines.push(vals.join(","));
+        }
+        return lines.join("\n");
+      }
+      document.getElementById("exportCsv").addEventListener("click", () => {
+        // export currently filtered results
+        const q = state.q.toLowerCase();
+        const filtered = state.data.filter((r) => {
+          if (state.status && r.status !== state.status) return false;
+          if (!state.q) return true;
+          return (
+            r.id.toLowerCase().includes(q) ||
+            r.customer.toLowerCase().includes(q) ||
+            (r.address || "").toLowerCase().includes(q)
+          );
+        });
+        const csv = toCSV(filtered);
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "sushi-orders.csv";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      // ===== Init =====
+      render();
+    </script>
+  </body>
+</html>

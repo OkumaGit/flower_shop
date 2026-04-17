@@ -7,9 +7,6 @@
 # Node modules
 node_modules/
 
-# admin
-admin/
-
 # Logs
 *.log
 npm-debug.log*

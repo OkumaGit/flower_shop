@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script type="module" src="./adminDashboard.js"></script>
+    <script type="module" src="../script.js"></script>
+  </head>
+  <body class="dashboard">
+    <header>
+      <div class="navbar-fixed">
+        <nav class="navbar">
+          <div class="nav-wrapper">
+            <div
+              style="padding: 0 16px; display: flex; justify-content: space-between"
+              class="nav-content"
+            >
+              <ul>
+                <li
+                  class="logo-container"
+                  style="
+                    border: none;
+                    margin-bottom: 20px;
+                    align-items: center;
+                    gap: 10px;
+                    justify-content: space-between;
+                    color: #fff;
+                  "
+                >
+                  <i class="material-icons left">spa</i>
+                  <a
+                    href="../index.html"
+                    class="brand-logo"
+                    style="font-size: 2.1rem; padding: 0; font-weight: 400; color: #fff"
+                  >
+                    Flower delivery
+                  </a>
+                </li>
+              </ul>
+              <ul>
+                <li><a class="logOutBtn">Log out</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m12"><h5>Sushi orders</h5></div>
+          <a href="/admin/table.html">Dashboard</a>
+          <div class="card">
+            <div>
+              <div id="table-custom-elements_filter" class="dataTables_filter" style="float: right">
+                <label>
+                  <input
+                    type="search"
+                    value=""
+                    class="inputMain"
+                    placeholder="Enter search term"
+                    aria-controls="table-custom-elements"
+                  />
+                </label>
+              </div>
+              <div class="tableWrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="td-dashboard">
+                        <label>
+                          <input type="checkbox" class="filled-in mainCheckBox" />
+                          <span></span>
+                        </label>
+                      </th>
+                      <th class="td-dashboard">Order №</th>
+                      <th class="td-dashboard">Time</th>
+                      <th class="td-dashboard">Client</th>
+                      <th class="td-dashboard">Qty</th>
+                      <th class="td-dashboard">Amount</th>
+                      <th class="td-dashboard">Address</th>
+                      <th class="td-dashboard">Payment type</th>
+                      <th class="td-dashboard">Status</th>
+                      <th class="td-dashboard">Name</th>
+                      <th class="td-dashboard">Price</th>
+                      <th class="td-dashboard">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table" class="table"></tbody>
+                  <!-- Insert here -->
+                </table>
+              </div>
+              <div
+                id="table-custom-elements_wrapper"
+                class="dataTables_wrapper no-footer"
+                style="display: flex; flex-direction: row; justify-content: space-between"
+              >
+                <div
+                  class="footer-wrapper"
+                  style="
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 100%;
+                    align-content: center;
+                  "
+                >
+                  <!-- Amount to show -->
+                  <div class="dataTables_length" id="table-custom-elements_length">
+                    <label
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                      "
+                    >
+                      Show
+                      <div class="select-wrapper">
+                        <input class="dropdown-trigger" type="text" readonly="true" value="5" />
+                        <ul id="select-options" class="" tabindex="0" style="display: none">
+                          <li
+                            id="select-options-90db14e2-b0fe-ed29-beeb-2fe9d13a58140"
+                            tabindex="0"
+                            class="selected"
+                          >
+                            <span>5</span>
+                          </li>
+                          <li
+                            id="select-options-90db14e2-b0fe-ed29-beeb-2fe9d13a58141"
+                            tabindex="0"
+                          >
+                            <span>10</span>
+                          </li>
+                          <li
+                            id="select-options-90db14e2-b0fe-ed29-beeb-2fe9d13a58142"
+                            tabindex="0"
+                          >
+                            <span>25</span>
+                          </li>
+                        </ul>
+                        <svg
+                          class="caret"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          width="24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M7 10l5 5 5-5z"></path>
+                          <path d="M0 0h24v24H0z" fill="none"></path>
+                        </svg>
+                        <!-- <select
+                          style="display: none"
+                          name="table-custom-elements_length"
+                          aria-controls="table-custom-elements"
+                          class=""
+                          tabindex="-1"
+                        >
+                          <option value="10">1</option>
+                          <option value="25">5</option>
+                          <option value="50">10</option>
+                        </select> -->
+                      </div>
+                      entries
+                    </label>
+                  </div>
+                  <!-- // -->
+                  <div
+                    class="paging-info"
+                    style="display: flex; flex-direction: column; justify-content: center"
+                  >
+                    <div
+                      class="dataTables_info"
+                      id="table-custom-elements_info"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      Showing 1 to 10 of 14 entries
+                    </div>
+                    <div
+                      class="dataTables_paginate paging_full"
+                      id="table-custom-elements_paginate"
+                    >
+                      <a
+                        class="paginate_button first disabled waves-effect"
+                        aria-controls="table-custom-elements"
+                        data-dt-idx="0"
+                        tabindex="0"
+                        id="table-custom-elements_first"
+                      >
+                        First
+                      </a>
+                      <a
+                        class="paginate_button previous disabled waves-effect"
+                        aria-controls="table-custom-elements"
+                        data-dt-idx="1"
+                        tabindex="0"
+                        id="table-custom-elements_previous"
+                      >
+                        Previous
+                      </a>
+                      <a
+                        class="paginate_button next waves-effect"
+                        aria-controls="table-custom-elements"
+                        data-dt-idx="2"
+                        tabindex="0"
+                        id="table-custom-elements_next"
+                      >
+                        Next
+                      </a>
+                      <a
+                        class="paginate_button last waves-effect"
+                        aria-controls="table-custom-elements"
+                        data-dt-idx="3"
+                        tabindex="0"
+                        id="table-custom-elements_last"
+                      >
+                        Last
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
