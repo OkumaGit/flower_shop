@@ -6,7 +6,7 @@ const logOut = async function logOut() {
   //DELETING TOKEN FROM LOCALSTORAGE
   await localStorage.removeItem('authToken');
   console.log('LocalStorage после удаления :', localStorage);
-  window.location.href = `/app/index.html`;
+  window.location.href = `/index.html`;
   console.log('saved token: ', localStorage.getItem('authToken'));
   console.log('LogOut result:');
   //
