@@ -149,7 +149,7 @@ let cartPage = () => {
         await sendOrder(inCartFlowerData, summPrice);
         setTimeout(() => {
           window.location.href = `./orderDetails.html`;
-        }, 2000);
+        }, 1000);
       });
       console.log('we are at CartPage');
       // LISTEN FOR CHANGE IN INPUT.VALUE IN CART

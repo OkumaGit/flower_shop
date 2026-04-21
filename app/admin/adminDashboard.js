@@ -24,12 +24,18 @@ let reRenderTable = () => {
 
   //ADDING all "tbody" to the "table"
   fetchOrders.forEach((element, index) => {
-    console.log('Element: ', element);
-
-    // if (index < spanValue && element.Name.toLowerCase().includes(inputMain.value.toLowerCase())) { } - LEFT HERE
-    let tbody = document.createElement('tr');
-    tbody.classList.add('tableElement');
-    tbody.innerHTML = `
+    console.log('Element: ', element, '+ inputValue', inputMain.value);
+    // if (index < spanValue && element.Name.toLowerCase().includes(inputMain.value.toLowerCase())){}
+    if (
+      index < spanValue &&
+      element.items.find((itemsElement) => {
+        return itemsElement.Name.toLowerCase().includes(inputMain.value.toLowerCase());
+        //LEFT HERE
+      })
+    ) {
+      let tbody = document.createElement('tr');
+      tbody.classList.add('tableElement');
+      tbody.innerHTML = `
                     <td class="td-dashboard">
                     <label>
                         <input type="checkbox" class="filled-in" />
@@ -48,8 +54,8 @@ let reRenderTable = () => {
                     <td class="td-dashboard">${element.address}</td>
                     <td class="td-dashboard">-</td>
                     <td class="td-dashboard">-</td>
-                    <td class="td-dashboard orderName">${element.items.Name}</td>
-                    <td class="td-dashboard">$${element.Price}</td>
+                    <td class="td-dashboard orderName">${(element.first_name, element.last_name)}</td>
+                    <td class="td-dashboard">$${element.summPrice}</td>
                     <td class="td-dashboard">
                       <input
   type="image"
@@ -64,7 +70,8 @@ let reRenderTable = () => {
   src="../src/edit_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" />
                     </td>
                `;
-    table.appendChild(tbody);
+      table.appendChild(tbody);
+    }
   });
   //
 };
@@ -118,7 +125,7 @@ let inputMain;
 document.addEventListener('DOMContentLoaded', () => {
   //CHECKBOXES inputMain LOGIC
   inputMain = document.querySelector('.inputMain');
-  inputMain.addEventListener('input', (event) => {
+  inputMain.addEventListener('input', () => {
     console.log('input is here: ', inputMain.value);
     reRenderTable();
   });

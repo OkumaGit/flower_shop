@@ -31,7 +31,7 @@ class NavBar extends HTMLElement {
                     color: #fff;
                   ">
                 <i class="material-icons left">spa</i>
-                <a href="./index.html" class="brand-logo" style="
+                <a href="/index.html" class="brand-logo" style="
                       font-size: 2.1rem;
                       padding: 0;
                       font-weight: 400;
@@ -43,15 +43,11 @@ class NavBar extends HTMLElement {
               <!-- pagesLinks -->
             <ul class="pagesLinks hide-on-med-and-down">
               <li>
-                <a href="./aboutUs.html"><span>About Us</span> </a>
-              </li>
-              <li>
-                <a href="./contactUs.html"><span>Contact Us</span> </a> 
+                <a href="/aboutUs.html"><span>About Us</span> </a>
               </li>
               ${token ? '<li><a class="adminBtn" href="#">Admin</a></li><li><a class="logOutBtn" href="#">Log out</a></li>' : '<li><a class="authBtn" href="#">Sign in</a></li>'}
             </ul>
              <!-- // -->
-
             <ul id="">
               <li style="display: flex; width: 100% ">
                 <a style="display: flex; gap: 10px" class="waves-effect" href="./shoppingCart.html"><span
@@ -72,11 +68,7 @@ class NavBar extends HTMLElement {
         </li>
         <li><div class="divider"></div></li>
         <li>
-        <a href="./aboutUs.html"><span>About Us</span> </a>
-        </li>
-        <li><div class="divider"></div></li>
-        <li>
-        <a href="./contactUs.html"><span>Contact Us</span> </a> 
+        <a href="/aboutUs.html"><span>About Us</span> </a>
         </li>
         <li><div class="divider"></div></li>
         ${token ? '<li><a class="adminBtn" href="#">Admin</a></li><li><a class="logOutBtn" href="#">Log out</a></li>' : '<li><a class="authBtn" href="#">Sign in</a></li>'}
@@ -95,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const adminBtn = document.querySelectorAll('.adminBtn');
   adminBtn.forEach((btn) => {
     btn.onclick = () => {
-      window.location.href = `./admin/admin.html`;
+      window.location.href = `/admin/admin.html`;
     };
   });
   //
