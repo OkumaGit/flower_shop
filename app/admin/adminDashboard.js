@@ -27,11 +27,11 @@ let reRenderTable = () => {
     console.log('Element: ', element, '+ inputValue', inputMain.value);
     // if (index < spanValue && element.Name.toLowerCase().includes(inputMain.value.toLowerCase())){}
     if (
-      index < spanValue &&
-      element.items.find((itemsElement) => {
-        return itemsElement.Name.toLowerCase().includes(inputMain.value.toLowerCase());
-        //LEFT HERE
-      })
+      (index < spanValue &&
+        element.items.find((itemsElement) => {
+          return itemsElement.Name.toLowerCase().includes(inputMain.value.toLowerCase());
+        })) ||
+      element._id.toLowerCase().includes(inputMain.value.toLowerCase())
     ) {
       let tbody = document.createElement('tr');
       tbody.classList.add('tableElement');
@@ -54,7 +54,7 @@ let reRenderTable = () => {
                     <td class="td-dashboard">${element.address}</td>
                     <td class="td-dashboard">-</td>
                     <td class="td-dashboard">-</td>
-                    <td class="td-dashboard orderName">${(element.first_name, element.last_name)}</td>
+                    <td class="td-dashboard orderName">${element.first_name || element.last_name ? element.first_name + ' ' + element.last_name : '-'}</td>
                     <td class="td-dashboard">$${element.summPrice}</td>
                     <td class="td-dashboard">
                       <input
@@ -77,18 +77,30 @@ let reRenderTable = () => {
 };
 //
 
-//DELETING ORDER - LEFT HERE
+//DELETING ORDER
+//AlertWindow
+const alertWindow = document.querySelector('alert-window');
+
+//
 document.addEventListener('click', async (event) => {
   updateSpanValue(event);
   if (event.target.classList.contains('deleteBtn')) {
-    // LOGIC
+    const alertWindow = document.querySelector('alert-window');
+    alertWindow.open();
     const row = event.target.closest('tr');
     const toDelete = row.querySelector('.orderId').innerHTML;
-    console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
-    //
-    toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
-    fetchOrderList();
-    reRenderTable();
+    if (alertWindow) {
+      const yesBtn = alertWindow.querySelector('.yesBtn');
+      yesBtn.onclick = async (event) => {
+        // LOGIC
+        console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
+        //
+        toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
+        fetchOrderList();
+        reRenderTable();
+        alertWindow.close();
+      };
+    }
   }
 });
 //
@@ -132,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //
 
   //FOR CHECKBOX LOGIC
-  mainCheckbox = table.parentElement.querySelector('.mainCheckBox');
+  mainCheckbox = table.parentElement.querySelector('.mainCheckBox'); //LEFT HERE
   mainCheckbox.addEventListener('change', (event) => {
     checkBoxCheck();
   });

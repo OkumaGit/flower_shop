@@ -22,7 +22,6 @@ const sbmtBtn = document.querySelector('.submitOrder');
 
 function checkIfLegit() {
   const allFilled = formCheck.checkValidity(); //AS EXTRA DEFAULT BROWSER CHECK METHOD
-  console.log('allFilled is: ', allFilled);
   formData.forEach(({ name, element }) => {
     if (element.value.trim() !== '') {
       orderData[name] = element.value;
@@ -31,22 +30,25 @@ function checkIfLegit() {
   console.log('orderData from forEach: ', orderData);
 
   if (
-    document.body.classList.contains('cartPage') ||
-    (orderData.first_name.trim() !== '' &&
-      orderData.phone.trim() !== '' &&
-      !isNaN(orderData.phone) &&
-      orderData.address.trim() !== '' &&
-      isNaN(orderData.first_name) &&
-      isNaN(orderData.last_name))
+    orderData.first_name.trim() !== '' &&
+    orderData.phone.trim() !== '' &&
+    !isNaN(orderData.phone) &&
+    orderData.address.trim() !== '' &&
+    isNaN(orderData.first_name) &&
+    isNaN(orderData.last_name)
   ) {
-    // STOPPED HERE
+    //LEFT HERE
     isValid = true;
   } else {
     isValid = false;
     console.log('Error');
   }
 
-  if (document.getElementById('productsInCart').children.length > 0 && isValid == true) {
+  if (
+    document.getElementById('productsInCart').children.length > 0 &&
+    isValid === true &&
+    allFilled === true
+  ) {
     sbmtBtn.classList.remove('disabled');
   } else {
     sbmtBtn.classList.add('disabled');
