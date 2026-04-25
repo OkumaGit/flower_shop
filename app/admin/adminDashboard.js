@@ -18,10 +18,6 @@ let reRenderTable = () => {
     element.remove();
   });
 
-  // FOR CHECBOX LOGIC
-  checkBoxes = table.querySelectorAll('input[type="checkbox"]');
-  //
-
   //ADDING all "tbody" to the "table"
   fetchOrders.forEach((element, index) => {
     console.log('Element: ', element, '+ inputValue', inputMain.value);
@@ -145,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //FOR CHECKBOX LOGIC
   mainCheckbox = table.parentElement.querySelector('.mainCheckBox'); //LEFT HERE
-  mainCheckbox.addEventListener('change', (event) => {
+  mainCheckbox.addEventListener('change', () => {
     checkBoxCheck();
   });
   //
@@ -155,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //CHECKBOXES LOGIC
 let checkBoxCheck = () => {
+  checkBoxes = table.querySelectorAll('input[type="checkbox"]');
   checkBoxes.forEach((checkbox) => {
     if (mainCheckbox.checked == true) {
       checkbox.checked = true;

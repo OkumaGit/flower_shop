@@ -27,16 +27,31 @@
           <a href="/admin/table.html">Dashboard</a>
           <div class="card">
             <div>
-              <div id="table-custom-elements_filter" class="dataTables_filter" style="float: right">
-                <label>
+              <div
+                style="
+                  display: flex;
+                  width: 100%;
+                  align-items: center;
+                  justify-content: space-between;
+                "
+              >
+                <div>
                   <input
-                    type="search"
-                    value=""
-                    class="inputMain"
-                    placeholder="Enter search term"
-                    aria-controls="table-custom-elements"
+                    type="image"
+                    src="../src/cancel_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
                   />
-                </label>
+                </div>
+                <div id="table-custom-elements_filter" class="dataTables_filter">
+                  <label>
+                    <input
+                      type="search"
+                      value=""
+                      class="inputMain"
+                      placeholder="Enter search term"
+                      aria-controls="table-custom-elements"
+                    />
+                  </label>
+                </div>
               </div>
               <div class="tableWrapper">
                 <table>
