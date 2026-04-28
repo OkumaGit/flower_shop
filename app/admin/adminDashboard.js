@@ -20,7 +20,6 @@ let reRenderTable = () => {
 
   //ADDING all "tbody" to the "table"
   fetchOrders.forEach((element, index) => {
-    console.log('Element: ', element, '+ inputValue', inputMain.value);
     // if (index < spanValue && element.Name.toLowerCase().includes(inputMain.value.toLowerCase())){}
     if (
       (index < spanValue &&
@@ -60,6 +59,7 @@ let reRenderTable = () => {
   alt=""
   src="../src/cancel_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" />
                         <input
+                        id="indeterminate-checkbox"
   type="image"
   id="image"
   alt=""
@@ -70,18 +70,19 @@ let reRenderTable = () => {
     }
   });
   //
+  //FOR CHECKBOXES LOGIC
+  checkBoxes = table.querySelectorAll('input[type="checkbox"]');
+  //
 };
 //
 
-//DELETING ORDER
-//AlertWindow
-const alertWindow = document.querySelector('alert-window');
-
-//
 document.addEventListener('click', async (event) => {
   updateSpanValue(event);
+  //DELETING ORDER
   if (event.target.classList.contains('deleteBtn')) {
+    //AlertWindow
     const alertWindow = document.querySelector('alert-window');
+    //
     alertWindow.open();
     const row = event.target.closest('tr');
     const toDelete = row.querySelector('.orderId').innerHTML;
@@ -98,22 +99,35 @@ document.addEventListener('click', async (event) => {
       };
     }
   }
+  //
+
+  //checkBoxes LOGIC
+  let checkBoxes = table.querySelectorAll('input[type="checkbox"]');
+  // if (checkBoxes.forEach((checkbox) => checkbox.checked)) {
+  //   mainCheckbox.checked = true;
+  // }
+  if (!event.target.classList.contains('mainCheckBox')) {
+    for (let checkbox of checkBoxes) {
+      if (checkbox.checked) {
+        mainCheckbox.checked = true;
+      } else mainCheckbox.checked = false;
+    }
+  }
 });
-//
 
 // AMOUNT OF ELEMENTS TO SHOW
 let openedSelector = document.getElementById('select-options'); //Element to change
 let selectorElement = document.querySelector('.dropdown-trigger'); //Listen for click
 //
 
-// updating SpanValue and forcing reRenderTable()
+// UPDATING SpanValue AND FORCING reRenderTable()
 let updateSpanValue = (event) => {
   if (event.target.classList.contains('dropdown-trigger')) {
     openedSelector.classList.toggle('select-dropdown');
   } else openedSelector.classList.remove('select-dropdown');
   //
   if (event.target.tagName === 'LI') {
-    // Making all li unselected
+    // MAKING ALL li UNSELECTED
     openedSelector.querySelectorAll('li').forEach((li) => {
       li.classList.remove('selected');
     });
@@ -127,12 +141,15 @@ let updateSpanValue = (event) => {
 };
 //
 
+//CHECKBOXES AND inputMain LOGIC
 let checkBoxes;
 let mainCheckbox;
+let tableControls;
 let inputMain;
 document.addEventListener('DOMContentLoaded', () => {
-  //CHECKBOXES inputMain LOGIC
+  //inputMain LOGIC
   inputMain = document.querySelector('.inputMain');
+  tableControls = document.querySelector('.tableControls input');
   inputMain.addEventListener('input', () => {
     console.log('input is here: ', inputMain.value);
     reRenderTable();
@@ -140,24 +157,27 @@ document.addEventListener('DOMContentLoaded', () => {
   //
 
   //FOR CHECKBOX LOGIC
-  mainCheckbox = table.parentElement.querySelector('.mainCheckBox'); //LEFT HERE
+  mainCheckbox = document.querySelector('.mainCheckBox');
   mainCheckbox.addEventListener('change', () => {
     checkBoxCheck();
   });
   //
-
   fetchOrderList();
 });
 
-//CHECKBOXES LOGIC
 let checkBoxCheck = () => {
-  checkBoxes = table.querySelectorAll('input[type="checkbox"]');
   checkBoxes.forEach((checkbox) => {
     if (mainCheckbox.checked == true) {
       checkbox.checked = true;
     } else {
       checkbox.checked = false;
     }
+    // REVEAL tableControls BLOCK
+    if (mainCheckbox.checked == true || checkbox.checked == true) {
+      tableControls.style.display = 'inline-block';
+    } else {
+      tableControls.style.display = 'none';
+    }
+    //
   });
 };
-//
