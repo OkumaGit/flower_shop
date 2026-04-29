@@ -2,6 +2,10 @@ import { getOrdersList, deleteOrder } from './adminMain.js';
 let fetchOrders;
 let spanValue = 5;
 let table = document.getElementById('table'); // Capture initial <table>
+// AMOUNT OF ELEMENTS TO SHOW
+let openedSelector = document.getElementById('select-options'); //Element to change
+let selectorElement = document.querySelector('.dropdown-trigger'); //Listen for click
+//
 
 //FETCH ORDER LIST AND POPULATE tbody
 let fetchOrderList = async function () {
@@ -13,14 +17,15 @@ let fetchOrderList = async function () {
 
 //RENDER TABLE WITH ORDER DATA
 let reRenderTable = () => {
+  //RESET ALL tbody
   let tbodyAll = table.querySelectorAll('.tableElement');
   tbodyAll.forEach((element) => {
     element.remove();
   });
+  //
 
   //ADDING all "tbody" to the "table"
   fetchOrders.forEach((element, index) => {
-    // if (index < spanValue && element.Name.toLowerCase().includes(inputMain.value.toLowerCase())){}
     if (
       (index < spanValue &&
         element.items.find((itemsElement) => {
@@ -70,25 +75,24 @@ let reRenderTable = () => {
     }
   });
   //
-  //FOR CHECKBOXES LOGIC
-  checkBoxes = table.querySelectorAll('input[type="checkbox"]');
-  //
 };
 //
 
+//CLICK
 document.addEventListener('click', async (event) => {
+  checkBoxCheck();
   updateSpanValue(event);
   //DELETING ORDER
   if (event.target.classList.contains('deleteBtn')) {
     //AlertWindow
     const alertWindow = document.querySelector('alert-window');
-    //
     alertWindow.open();
+    //
     const row = event.target.closest('tr');
     const toDelete = row.querySelector('.orderId').innerHTML;
     if (alertWindow) {
       const yesBtn = alertWindow.querySelector('.yesBtn');
-      yesBtn.onclick = async (event) => {
+      yesBtn.onclick = async () => {
         // LOGIC
         console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
         //
@@ -100,24 +104,7 @@ document.addEventListener('click', async (event) => {
     }
   }
   //
-
-  //checkBoxes LOGIC
-  let checkBoxes = table.querySelectorAll('input[type="checkbox"]');
-  // if (checkBoxes.forEach((checkbox) => checkbox.checked)) {
-  //   mainCheckbox.checked = true;
-  // }
-  if (!event.target.classList.contains('mainCheckBox')) {
-    for (let checkbox of checkBoxes) {
-      if (checkbox.checked) {
-        mainCheckbox.checked = true;
-      } else mainCheckbox.checked = false;
-    }
-  }
 });
-
-// AMOUNT OF ELEMENTS TO SHOW
-let openedSelector = document.getElementById('select-options'); //Element to change
-let selectorElement = document.querySelector('.dropdown-trigger'); //Listen for click
 //
 
 // UPDATING SpanValue AND FORCING reRenderTable()
@@ -146,38 +133,56 @@ let checkBoxes;
 let mainCheckbox;
 let tableControls;
 let inputMain;
+//
+
+//DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
   //inputMain LOGIC
   inputMain = document.querySelector('.inputMain');
   tableControls = document.querySelector('.tableControls input');
   inputMain.addEventListener('input', () => {
-    console.log('input is here: ', inputMain.value);
     reRenderTable();
-  });
-  //
-
-  //FOR CHECKBOX LOGIC
-  mainCheckbox = document.querySelector('.mainCheckBox');
-  mainCheckbox.addEventListener('change', () => {
-    checkBoxCheck();
   });
   //
   fetchOrderList();
 });
+//
 
+//
 let checkBoxCheck = () => {
-  checkBoxes.forEach((checkbox) => {
-    if (mainCheckbox.checked == true) {
-      checkbox.checked = true;
-    } else {
-      checkbox.checked = false;
-    }
-    // REVEAL tableControls BLOCK
-    if (mainCheckbox.checked == true || checkbox.checked == true) {
-      tableControls.style.display = 'inline-block';
-    } else {
-      tableControls.style.display = 'none';
-    }
-    //
+  //checkBoxes LOGIC
+  mainCheckbox = document.querySelector('.mainCheckBox');
+  checkBoxes = table.querySelectorAll('input[type="checkbox"]');
+  mainCheckbox.addEventListener('click', () => {
+    checkBoxes.forEach((checkbox) => {
+      if (mainCheckbox.checked == true) {
+        checkbox.checked = true;
+      } else {
+        checkbox.checked = false;
+      }
+    });
   });
+
+  //someChecked
+  let someChecked = false;
+  checkBoxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      someChecked = true;
+    }
+  });
+  //
+
+  //REVEAL tableControls BLOCK
+  console.log('Somechecked now: ', someChecked);
+  if (someChecked == true) {
+    tableControls.style.display = 'inline-block';
+    //LEFT HERE (To replace for a "line" instead of "checkmark")
+    mainCheckbox.checked = true;
+    //
+  } else {
+    tableControls.style.display = 'none';
+    mainCheckbox.checked = false;
+  }
+  //
 };
+//

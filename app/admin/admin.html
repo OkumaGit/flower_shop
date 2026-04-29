@@ -10,6 +10,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="module" src="../modules/components/navBar.js"></script>
     <script type="module" src="../modules/components/alertWindow.js"></script>
     <script type="module" src="./adminDashboard.js"></script>
@@ -23,7 +24,7 @@
       <div class="container">
         <div class="row">
           <alert-window></alert-window>
-          <div class="col s12 m12"><h5>Sushi orders</h5></div>
+          <div class="col s12 m12"><h5>Flowers orders</h5></div>
           <a href="/admin/table.html">Dashboard</a>
           <div class="card">
             <div>
@@ -77,8 +78,10 @@
                       <th class="td-dashboard">Action</th>
                     </tr>
                   </thead>
-                  <tbody id="table" class="table"></tbody>
-                  <!-- Insert here -->
+                  <div>
+                    <tbody id="table" class="table"></tbody>
+                    <!-- Insert here -->
+                  </div>
                 </table>
               </div>
               <div
