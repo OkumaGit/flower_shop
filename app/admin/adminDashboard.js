@@ -80,7 +80,7 @@ let reRenderTable = () => {
 
 //CLICK
 document.addEventListener('click', async (event) => {
-  checkBoxCheck();
+  checkBoxCheck(event);
   updateSpanValue(event);
   //DELETING ORDER
   if (event.target.classList.contains('deleteBtn')) {
@@ -149,10 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
 //
 
 //
-let checkBoxCheck = () => {
+let checkBoxCheck = (event) => {
   //checkBoxes LOGIC
-  mainCheckbox = document.querySelector('.mainCheckBox');
-  checkBoxes = table.querySelectorAll('input[type="checkbox"]');
+  mainCheckbox = document.querySelector('.mainCheckBox'); //mainCheckbox
+  checkBoxes = table.querySelectorAll('input[type="checkbox"]'); //Checkbox
   mainCheckbox.addEventListener('click', () => {
     checkBoxes.forEach((checkbox) => {
       if (mainCheckbox.checked == true) {
@@ -170,6 +170,33 @@ let checkBoxCheck = () => {
       someChecked = true;
     }
   });
+  //
+
+  //LEFT HERE
+  let checkIfAllSelected = (event) => {
+    let i = 0;
+    // checkBoxes.forEach((checkbox) => {
+    //   if (checkbox.checked == true) {
+    //     i++;
+    //     console.log('amount of checkboxes: ', i);
+    //     console.log(checkBoxes.length);
+    //   }
+    // });
+
+    for (let checkbox of checkBoxes) {
+      if (checkbox.checked == true) {
+        i++;
+        console.log('amount of checkboxes: ', i);
+      }
+    }
+    if (i < checkBoxes.length) {
+      mainCheckbox.classList.add('indeterminate');
+    } else mainCheckbox.classList.remove('indeterminate');
+  };
+
+  if (!event.target.classList.contains('mainCheckBox')) {
+    checkIfAllSelected(event);
+  }
   //
 
   //REVEAL tableControls BLOCK

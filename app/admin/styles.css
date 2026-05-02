@@ -7,6 +7,21 @@
   border-right: 1px solid rgba(0, 0, 0, 0.17);
 }
 
+.td-dashboard [type='checkbox'].indeterminate:checked + span:not(.lever):before {
+  top: -4px;
+  left: -4px;
+  width: 8px;
+  /* height: 13px; */
+  /* border-top: 2px solid transparent;
+  border-left: 2px solid transparent; */
+  border-right: 2px solid #fff;
+  border-bottom: 0;
+  -webkit-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
+  /* -webkit-transform-origin: 100% 100%; */
+  transform-origin: 100% 100%;
+}
+
 .tableWrapper {
   display: block;
   width: 100%;
