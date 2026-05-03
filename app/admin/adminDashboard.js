@@ -26,12 +26,15 @@ let reRenderTable = () => {
 
   //ADDING all "tbody" to the "table"
   fetchOrders.forEach((element, index) => {
+    //LEFT HERE (Make the letters/numbers highlighted)
     if (
-      (index < spanValue &&
-        element.items.find((itemsElement) => {
-          return itemsElement.Name.toLowerCase().includes(inputMain.value.toLowerCase());
-        })) ||
-      element._id.toLowerCase().includes(inputMain.value.toLowerCase())
+      index < spanValue &&
+      element.items.find((itemsElement) => {
+        return (
+          itemsElement.Name.toLowerCase().includes(inputMain.value.toLowerCase()) ||
+          element._id.toLowerCase().includes(inputMain.value.toLowerCase())
+        );
+      })
     ) {
       let tbody = document.createElement('tr');
       tbody.classList.add('tableElement');
@@ -80,8 +83,14 @@ let reRenderTable = () => {
 
 //CLICK
 document.addEventListener('click', async (event) => {
-  checkBoxCheck(event);
+  if (event.target.type === 'checkbox') {
+    checkBoxCheck(event);
+  }
+
+  // UPDATING SpanValue
   updateSpanValue(event);
+  //
+
   //DELETING ORDER
   if (event.target.classList.contains('deleteBtn')) {
     //AlertWindow
@@ -123,6 +132,7 @@ let updateSpanValue = (event) => {
     openedSelector.classList.toggle('select-dropdown');
     spanValue = parseInt(event.target.querySelector('span').innerText);
     selectorElement.value = spanValue;
+    console.log('reRenderTable triggered');
     reRenderTable();
   }
 };
@@ -153,7 +163,7 @@ let checkBoxCheck = (event) => {
   //checkBoxes LOGIC
   mainCheckbox = document.querySelector('.mainCheckBox'); //mainCheckbox
   checkBoxes = table.querySelectorAll('input[type="checkbox"]'); //Checkbox
-  mainCheckbox.addEventListener('click', () => {
+  if (event.target.classList.contains('mainCheckBox')) {
     checkBoxes.forEach((checkbox) => {
       if (mainCheckbox.checked == true) {
         checkbox.checked = true;
@@ -161,7 +171,7 @@ let checkBoxCheck = (event) => {
         checkbox.checked = false;
       }
     });
-  });
+  }
 
   //someChecked
   let someChecked = false;
@@ -173,7 +183,7 @@ let checkBoxCheck = (event) => {
   //
 
   //LEFT HERE
-  let checkIfAllSelected = (event) => {
+  let checkIfAllSelected = () => {
     let i = 0;
     // checkBoxes.forEach((checkbox) => {
     //   if (checkbox.checked == true) {
@@ -189,6 +199,7 @@ let checkBoxCheck = (event) => {
         console.log('amount of checkboxes: ', i);
       }
     }
+
     if (i < checkBoxes.length) {
       mainCheckbox.classList.add('indeterminate');
     } else mainCheckbox.classList.remove('indeterminate');
