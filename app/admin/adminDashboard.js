@@ -121,6 +121,7 @@ let deletingOrder = (event) => {
       alertWindow.open();
       //
       const toDelete = event.target.closest('tr').querySelector('.orderId').innerHTML;
+
       if (alertWindow) {
         const yesBtn = alertWindow.querySelector('.yesBtn');
         yesBtn.onclick = async () => {
@@ -132,30 +133,34 @@ let deletingOrder = (event) => {
       }
     }
   };
-  // deletingSingle(event);
+  deletingSingle(event);
 
   //miltipleDeleteBtn
   if (event.target.classList.contains('miltipleDeleteBtn')) {
     //AlertWindow LEFT HERE
-    alertWindow.open();
     //
     // if (!mainCheckbox.checked) {
     //   alert('mainChecked');
     // }
+    let toDelete = [];
     checkBoxes.forEach((checkbox) => {
       if (checkbox.checked) {
-        console.log('checkBoxes toDelete: ', checkbox);
-        if (alertWindow) {
-          let toDelete = checkbox.closest('tr').querySelector('.orderId').innerHTML;
-          console.log('toDelete: ', toDelete);
-          let yesBtn = alertWindow.querySelector('.yesBtn');
-          yesBtn.onclick = async () => {
-            console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
-            toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
-          };
-        }
+        toDelete.push(checkbox);
       }
     });
+    if (alertWindow) {
+      alertWindow.open();
+      //
+      // let toDelete = checkbox.closest('tr').querySelector('.orderId').innerHTML;
+      //
+      let yesBtn = alertWindow.querySelector('.yesBtn');
+      console.log('checkBoxes massive: ', toDelete);
+      yesBtn.onclick = async () => {
+        console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
+        toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
+        alertWindow.close();
+      };
+    }
     // fetchOrderList();
     // alertWindow.close();
   }

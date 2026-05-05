@@ -18,7 +18,8 @@ export { getOrdersList };
 //
 
 //DELETE ORDER
-const deleteOrder = async (req, res) => {
+// const deleteOrder = async (req, res) => {
+const deleteOrder = async (orderId) => {
   try {
     const toDelete = req.body;
     console.log('toDelete from adminMain.js', toDelete);
@@ -29,7 +30,8 @@ const deleteOrder = async (req, res) => {
     // });
     //
     // Sending data to DB
-    const orderId = '69127c3e7631c7153702855c';
+
+    // const orderId = '69127c3e7631c7153702855c';
     const token = await localStorage.getItem('authToken'); //LOADED TOKEN
     if (token) {
       console.log('Token loaded in delete: ', token);
