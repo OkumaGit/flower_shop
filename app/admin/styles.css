@@ -19,7 +19,7 @@
   border-bottom: 0;
   -webkit-transform: rotateZ(90deg);
   transform: rotateZ(90deg);
-  /* -webkit-transform-origin: 100% 100%; */
+  -webkit-transform-origin: 100% 100%;
   transform-origin: 100% 100%;
 }
 

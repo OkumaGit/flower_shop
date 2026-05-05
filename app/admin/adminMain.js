@@ -24,9 +24,9 @@ const deleteOrder = async (req, res) => {
     console.log('toDelete from adminMain.js', toDelete);
 
     // DETECT WHICH ORDER MEANT TO BE DELETED
-    document.addEventListener('click', (event) => {
-      console.log('Closest "orderName" InnerHTM: ', event.target.closest('orderName').innerHTML);
-    });
+    // document.addEventListener('click', (event) => {
+    //   console.log('Closest "orderName" InnerHTM: ', event.target.closest('orderName').innerHTML);
+    // });
     //
     // Sending data to DB
     const orderId = '69127c3e7631c7153702855c';
