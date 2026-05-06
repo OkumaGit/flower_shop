@@ -135,7 +135,7 @@ let deletingOrder = (event) => {
   };
   deletingSingle(event);
 
-  //miltipleDeleteBtn
+  //MULTIPLE DELETE - miltipleDeleteBtn
   if (event.target.classList.contains('miltipleDeleteBtn')) {
     //AlertWindow LEFT HERE
     //
@@ -145,14 +145,12 @@ let deletingOrder = (event) => {
     let toDelete = [];
     checkBoxes.forEach((checkbox) => {
       if (checkbox.checked) {
-        toDelete.push(checkbox);
+        let orderID = checkbox.closest('tr').querySelector('.orderId').innerHTML;
+        toDelete.push(orderID);
       }
     });
     if (alertWindow) {
       alertWindow.open();
-      //
-      // let toDelete = checkbox.closest('tr').querySelector('.orderId').innerHTML;
-      //
       let yesBtn = alertWindow.querySelector('.yesBtn');
       console.log('checkBoxes massive: ', toDelete);
       yesBtn.onclick = async () => {
