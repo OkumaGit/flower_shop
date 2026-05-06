@@ -19,10 +19,9 @@ export { getOrdersList };
 
 //DELETE ORDER
 // const deleteOrder = async (req, res) => {
-const deleteOrder = async (orderId) => {
+const deleteOrder = async (toDelete) => {
   try {
-    const toDelete = req.body;
-    console.log('toDelete from adminMain.js', toDelete);
+    console.log('toDelete from adminMain.js', toDelete[0]);
 
     // DETECT WHICH ORDER MEANT TO BE DELETED
     // document.addEventListener('click', (event) => {
@@ -31,13 +30,13 @@ const deleteOrder = async (orderId) => {
     //
     // Sending data to DB
 
-    // const orderId = '69127c3e7631c7153702855c';
+    toDelete = '69127c3e7631c7153702855c';
     const token = await localStorage.getItem('authToken'); //LOADED TOKEN
     if (token) {
       console.log('Token loaded in delete: ', token);
     } else console.log('no token');
 
-    const response = await fetch(`${config.API_URL}/api/orders/${orderId}`, {
+    const response = await fetch(`${config.API_URL}/api/orders/${toDelete}`, {
       headers: {
         Authorization: `Bearer ${token.trim()}`,
       },

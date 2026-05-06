@@ -145,7 +145,7 @@ let deletingOrder = (event) => {
     let toDelete = [];
     checkBoxes.forEach((checkbox) => {
       if (checkbox.checked) {
-        toDelete.push(checkbox);
+        toDelete.push(checkbox.closest('tr').querySelector('.orderId').innerHTML);
       }
     });
     if (alertWindow) {
