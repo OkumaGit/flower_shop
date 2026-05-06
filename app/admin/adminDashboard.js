@@ -135,7 +135,7 @@ let deletingOrder = (event) => {
   };
   deletingSingle(event);
 
-  //miltipleDeleteBtn
+  //MULTIPLE DELETE - miltipleDeleteBtn
   if (event.target.classList.contains('miltipleDeleteBtn')) {
     //AlertWindow LEFT HERE
     //
@@ -150,9 +150,6 @@ let deletingOrder = (event) => {
     });
     if (alertWindow) {
       alertWindow.open();
-      //
-      // let toDelete = checkbox.closest('tr').querySelector('.orderId').innerHTML;
-      //
       let yesBtn = alertWindow.querySelector('.yesBtn');
       console.log('checkBoxes massive: ', toDelete);
       yesBtn.onclick = async () => {
