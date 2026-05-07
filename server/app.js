@@ -72,10 +72,11 @@ async function start() {
 
     //DELETE Orders API
     const orderId = '69127c3e7631c7153702855c';
+    localStorage.getItem(toDelete) ? (orderId = localStorage.getItem(toDelete)) : null; //LEFT HERE
     app.delete(`/api/orders/${orderId}`, auth, async (req, res) => {
       try {
         const toDelete = req.body;
-        const result = await db.collection('flower_orders').deleteOne(toDelete);
+        const result = await db.collection('flower_orders').deleteOne(toDelete[0]);
         res.status(200).json({ message: 'Successfully deleted' }, result);
       } catch (error) {
         console.log(error);

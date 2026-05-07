@@ -121,11 +121,10 @@ let deletingOrder = (event) => {
       alertWindow.open();
       //
       const toDelete = event.target.closest('tr').querySelector('.orderId').innerHTML;
-
       if (alertWindow) {
         const yesBtn = alertWindow.querySelector('.yesBtn');
         yesBtn.onclick = async () => {
-          console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
+          // console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
           toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
           fetchOrderList();
           alertWindow.close();
@@ -146,6 +145,8 @@ let deletingOrder = (event) => {
     checkBoxes.forEach((checkbox) => {
       if (checkbox.checked) {
         toDelete.push(checkbox.closest('tr').querySelector('.orderId').innerHTML);
+        localStorage.setItem('toDelete', toDelete);
+        //  localStorage.setItem('toDelete', JSON.stringify(toDelete));
       }
     });
     if (alertWindow) {
@@ -153,7 +154,7 @@ let deletingOrder = (event) => {
       let yesBtn = alertWindow.querySelector('.yesBtn');
       console.log('checkBoxes massive: ', toDelete);
       yesBtn.onclick = async () => {
-        console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
+        // console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
         toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
         alertWindow.close();
       };
