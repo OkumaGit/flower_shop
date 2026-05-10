@@ -18,42 +18,33 @@ export { getOrdersList };
 //
 
 //DELETE ORDER
-// const deleteOrder = async (req, res) => {
-const deleteOrder = async (req, res) => {
+const deleteOrder = async (toDelete) => {
   try {
-    let toDelete = req.body;
-    toDelete.forEach((element) => {
-      console.log('toDelete from adminMain.js', element);
-    });
+    console.log('toDelete from adminMain.js', toDelete);
+    //Sending data to DB
 
-    // DETECT WHICH ORDER MEANT TO BE DELETED
-    // document.addEventListener('click', (event) => {
-    //   console.log('Closest "orderName" InnerHTM: ', event.target.closest('orderName').innerHTML);
-    // });
-    //
-    // Sending data to DB
-
-    toDelete = '69127c3e7631c7153702855c';
-    const token = await localStorage.getItem('authToken'); //LOADED TOKEN
+    const token = localStorage.getItem('authToken'); //LOADED TOKEN
     if (token) {
       console.log('Token loaded in delete: ', token);
     } else console.log('no token');
-
-    const response = await fetch(`${config.API_URL}${toDelete}`, {
+    // const response = await fetch(`${config.API_URL}/api/orders/${toDelete}`
+    const response = await fetch(`${config.API_URL}/api/orders/${toDelete}`, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token.trim()}`,
       },
       method: 'DELETE',
+      body: JSON.stringify(toDelete),
     });
     console.log('res in deleteOrder: ', response.status);
     if (response.status === 401) {
       logOut();
+      M.toast({ html: 'Session expired', classes: 'red', displayLength: 2000 });
     }
     //
   } catch (error) {
     console.error('error in deleteOrder: ', error.message);
   }
 };
-
 export { deleteOrder };
 //

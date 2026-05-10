@@ -6,6 +6,7 @@ const cors = require('cors');
 const auth = require('./auth/middleware/auth.js');
 const app = express();
 const path = require('path');
+const { ObjectId } = require('mongodb');
 app.use(express.json()); // Must for JSON body read
 app.use(express.static(path.join(__dirname, '../app')));
 app.use('/admin', express.static(path.join(__dirname, '../app/admin')));
@@ -18,12 +19,13 @@ async function start() {
   try {
     await client.connect();
     console.log('Connected to MongoDB');
-
     const db = client.db('flowers_store');
     const products = db.collection('flowers');
+
     // Saving DB in locals.
     app.locals.db = db;
     //
+
     //Adding AUTH (Routes) to server
     const authRoutes = require('./auth/routes/index.js');
     app.use('/api/auth', authRoutes);
@@ -46,7 +48,6 @@ async function start() {
       try {
         const ordersList = await orders.find().toArray();
         res.json(ordersList);
-        // console.log("fetched Orders from DB done");
       } catch (error) {
         console.log(error);
       }
@@ -61,7 +62,7 @@ async function start() {
         res.status(201).json(result);
         console.log('Recieved order: ', req.body);
         // res.json({
-        //   message: "Заказ получен!",
+        //   message: "Order recieved!",
         //   receivedData: req.body,
         // });
       } catch (error) {
@@ -70,13 +71,31 @@ async function start() {
     });
     //
 
-    //DELETE Orders API
-    const orderId = '69127c3e7631c7153702855c';
-    localStorage.getItem(toDelete) ? (orderId = localStorage.getItem(toDelete)) : null; //LEFT HERE
-    app.delete(`/api/orders/${orderId}`, auth, async (req, res) => {
+    //DELETE one Order API
+    app.delete(`/api/orders/:id`, auth, async (req, res) => {
       try {
-        const toDelete = req.body;
-        const result = await db.collection('flower_orders').deleteOne(toDelete[0]);
+        console.log(req.params.id.trim());
+
+        const result = await db
+          .collection('flower_orders')
+          .deleteOne({ _id: new ObjectId(req.params.id.trim()) });
+        res.status(200).json({ message: 'Successfully deleted' }, result);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+    //
+    //DELETE many Orders API
+    app.delete(`/api/orders`, auth, async (req, res) => {
+      try {
+        let ids = req.body;
+        if (!ids) {
+          return res.status(400).json({ message: 'No multiple ids found' });
+        }
+        console.log('ids1: ', ids);
+        const result = await db
+          .collection('flower_orders')
+          .deleteMany({ _id: { $in: ids.map((id) => new ObjectId(id)) } });
         res.status(200).json({ message: 'Successfully deleted' }, result);
       } catch (error) {
         console.log(error);
@@ -88,8 +107,7 @@ async function start() {
   }
 }
 
-// //DEFEND ADMIN FOLDER WITH AUTH
-// const auth = require('./auth/middleware/auth');
+// //DEFEND ADMIN FOLDER WITH AUTH - LEFT HERE
 // app.use('/admin', auth, express.static('admin'));
 // //
 

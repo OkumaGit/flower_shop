@@ -99,11 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
   //inputMain LOGIC
   inputMain = document.querySelector('.inputMain');
   tableControls = document.querySelector('.tableControls input');
-  //LEFT HERE (TO DELETE?)
-  // tableControls.addEventListener('click', () => {
-  //   deleteFromTableControls();
-  //   alert('Yo');
-  // });
   inputMain.addEventListener('input', () => {
     reRenderTable();
   });
@@ -128,38 +123,34 @@ let deletingOrder = (event) => {
           toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
           fetchOrderList();
           alertWindow.close();
+          M.toast({ html: `Order ${toDelete} deleted`, classes: 'green', displayLength: 3000 });
         };
       }
     }
   };
   deletingSingle(event);
-
   //MULTIPLE DELETE - miltipleDeleteBtn
   if (event.target.classList.contains('miltipleDeleteBtn')) {
-    //AlertWindow LEFT HERE
-    //
-    // if (!mainCheckbox.checked) {
-    //   alert('mainChecked');
-    // }
     let toDelete = [];
     checkBoxes.forEach((checkbox) => {
       if (checkbox.checked) {
-        toDelete.push(checkbox.closest('tr').querySelector('.orderId').innerHTML);
-        localStorage.setItem('toDelete', toDelete);
-        //  localStorage.setItem('toDelete', JSON.stringify(toDelete));
+        toDelete.push(checkbox.closest('tr').querySelector('.orderId').textContent.trim());
+        // toDelete = checkbox.closest('tr').querySelector('.orderId').textContent.trim();
       }
     });
     if (alertWindow) {
       alertWindow.open();
       let yesBtn = alertWindow.querySelector('.yesBtn');
-      console.log('checkBoxes massive: ', toDelete);
       yesBtn.onclick = async () => {
-        // console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
-        toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
-        alertWindow.close();
+        console.log('checkBoxes massive in adminDashboard.js(controller): ', toDelete);
+        if (toDelete) {
+          await deleteOrder(toDelete);
+          fetchOrderList();
+          alertWindow.close();
+          M.toast({ html: `Order ${toDelete} deleted`, classes: 'green', displayLength: 3000 });
+        } else console.log('nothing to delete');
       };
     }
-    // fetchOrderList();
     // alertWindow.close();
   }
   //
