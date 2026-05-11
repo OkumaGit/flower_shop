@@ -88,7 +88,9 @@ async function start() {
     //DELETE many Orders API
     app.delete(`/api/orders`, auth, async (req, res) => {
       try {
-        let ids = req.body;
+        let { ids } = req.body;
+        console.log(ids);
+
         if (!ids) {
           return res.status(400).json({ message: 'No multiple ids found' });
         }
