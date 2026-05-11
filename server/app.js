@@ -71,33 +71,33 @@ async function start() {
     });
     //
 
-    //DELETE one Order API
-    app.delete(`/api/orders/:id`, auth, async (req, res) => {
+    //DELETE many Orders API
+    app.delete(`/api/orders`, auth, async (req, res) => {
       try {
-        console.log(req.params.id.trim());
-
-        const result = await db
-          .collection('flower_orders')
-          .deleteOne({ _id: new ObjectId(req.params.id.trim()) });
+        let ids = req.body;
+        let objectIds;
+        if (ids) {
+          objectIds = ids.filter((id) => ObjectId.isValid(id)).map((id) => new ObjectId(id));
+        }
+        if (!ids) {
+          return res.status(400).json({ message: 'No multiple ids found' });
+        }
+        console.log('ids1: ', ids);
+        const result = await db.collection('flower_orders').deleteMany({ _id: { $in: objectIds } });
         res.status(200).json({ message: 'Successfully deleted' }, result);
       } catch (error) {
         console.log(error);
       }
     });
     //
-    //DELETE many Orders API
-    app.delete(`/api/orders`, auth, async (req, res) => {
-      try {
-        let { ids } = req.body;
-        console.log(ids);
 
-        if (!ids) {
-          return res.status(400).json({ message: 'No multiple ids found' });
-        }
-        console.log('ids1: ', ids);
+    //DELETE one Order API
+    app.delete(`/api/orders/:id`, auth, async (req, res) => {
+      try {
+        console.log(req.params.id.trim());
         const result = await db
           .collection('flower_orders')
-          .deleteMany({ _id: { $in: ids.map((id) => new ObjectId(id)) } });
+          .deleteOne({ _id: new ObjectId(req.params.id.trim()) });
         res.status(200).json({ message: 'Successfully deleted' }, result);
       } catch (error) {
         console.log(error);

@@ -115,7 +115,9 @@ let deletingOrder = (event) => {
       //AlertWindow
       alertWindow.open();
       //
-      const toDelete = event.target.closest('tr').querySelector('.orderId').innerHTML;
+      const toDelete = event.target.closest('tr').querySelector('.orderId').textContent.trim();
+      console.log('toDelete in deletingOrder single', toDelete);
+
       if (alertWindow) {
         const yesBtn = alertWindow.querySelector('.yesBtn');
         yesBtn.onclick = async () => {
@@ -123,7 +125,6 @@ let deletingOrder = (event) => {
           toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
           fetchOrderList();
           alertWindow.close();
-          M.toast({ html: `Order ${toDelete} deleted`, classes: 'green', displayLength: 3000 });
         };
       }
     }
@@ -132,12 +133,14 @@ let deletingOrder = (event) => {
   //MULTIPLE DELETE - miltipleDeleteBtn
   if (event.target.classList.contains('miltipleDeleteBtn')) {
     let toDelete = [];
-    checkBoxes.forEach((checkbox) => {
-      if (checkbox.checked) {
-        toDelete.push(checkbox.closest('tr').querySelector('.orderId').textContent.trim());
-        // toDelete = checkbox.closest('tr').querySelector('.orderId').textContent.trim();
-      }
-    });
+    if (checkBoxes) {
+      checkBoxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+          toDelete.push(checkbox.closest('tr').querySelector('.orderId').textContent.trim());
+        }
+      });
+    }
+
     if (alertWindow) {
       alertWindow.open();
       let yesBtn = alertWindow.querySelector('.yesBtn');
@@ -147,11 +150,9 @@ let deletingOrder = (event) => {
           await deleteOrder(toDelete);
           fetchOrderList();
           alertWindow.close();
-          M.toast({ html: `Order ${toDelete} deleted`, classes: 'green', displayLength: 3000 });
         } else console.log('nothing to delete');
       };
     }
-    // alertWindow.close();
   }
   //
 };

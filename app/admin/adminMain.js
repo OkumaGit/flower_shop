@@ -20,15 +20,21 @@ export { getOrdersList };
 //DELETE ORDER
 const deleteOrder = async (toDelete) => {
   try {
-    console.log('toDelete from adminMain.js', toDelete);
+    console.log('toDelete from adminMain.js', toDelete, 'toDelete length: ', toDelete.length);
     //Sending data to DB
-
     const token = localStorage.getItem('authToken'); //LOADED TOKEN
     if (token) {
       console.log('Token loaded in delete: ', token);
+      M.toast({ html: `Order ${toDelete} deleted`, classes: 'green', displayLength: 3000 });
     } else console.log('no token');
-    // const response = await fetch(`${config.API_URL}/api/orders/${toDelete}`
-    const response = await fetch(`${config.API_URL}/api/orders/${toDelete}`, {
+    let finalDeleteURL;
+    if (!Array.isArray(toDelete)) {
+      finalDeleteURL = `/api/orders/${toDelete}`;
+    } else {
+      finalDeleteURL = `/api/orders`;
+    }
+    console.log('correctUrl: ', `${config.API_URL}${finalDeleteURL}`);
+    const response = await fetch(`${config.API_URL}${finalDeleteURL}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token.trim()}`,
