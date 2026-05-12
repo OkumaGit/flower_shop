@@ -107,31 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 //
 
+//DELETING ORDER
 let deletingOrder = (event) => {
   let alertWindow = document.querySelector('alert-window');
-  //DELETING ORDER
-  let deletingSingle = (event) => {
-    if (event.target.classList.contains('deleteBtn')) {
-      //AlertWindow
-      alertWindow.open();
-      //
-      const toDelete = event.target.closest('tr').querySelector('.orderId').textContent.trim();
-      console.log('toDelete in deletingOrder single', toDelete);
-
-      if (alertWindow) {
-        const yesBtn = alertWindow.querySelector('.yesBtn');
-        yesBtn.onclick = async () => {
-          // console.log('toDelete _Id from .innerHTML (adminDashboard.js): ', toDelete);
-          toDelete ? await deleteOrder(toDelete) : console.log('nothing to delete');
-          fetchOrderList();
-          alertWindow.close();
-        };
-      }
-    }
-  };
-  deletingSingle(event);
-  //MULTIPLE DELETE - miltipleDeleteBtn
-  if (event.target.classList.contains('miltipleDeleteBtn')) {
+  if (
+    event.target.classList.contains('miltipleDeleteBtn') ||
+    event.target.classList.contains('deleteBtn')
+  ) {
     let toDelete = [];
     if (checkBoxes) {
       checkBoxes.forEach((checkbox) => {
@@ -139,8 +121,9 @@ let deletingOrder = (event) => {
           toDelete.push(checkbox.closest('tr').querySelector('.orderId').textContent.trim());
         }
       });
+    } else {
+      toDelete.push(event.target.closest('tr').querySelector('.orderId').textContent.trim());
     }
-
     if (alertWindow) {
       alertWindow.open();
       let yesBtn = alertWindow.querySelector('.yesBtn');
@@ -198,7 +181,6 @@ let checkIfAllSelected = () => {
     }
     console.log('amount of checkboxes: ', i);
   }
-
   if (i < checkBoxes.length) {
     mainCheckbox.classList.add('indeterminate');
   } else mainCheckbox.classList.remove('indeterminate');

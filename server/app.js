@@ -54,27 +54,18 @@ async function start() {
     });
     //
 
+    //ORDERS ROUTES
+    const orderRoutes = require('./orders/routes/index.js');
     // POST Orders API
-    app.post('/api/orders', async (req, res) => {
-      try {
-        const order = req.body;
-        const result = await db.collection('flower_orders').insertOne(order);
-        res.status(201).json(result);
-        console.log('Recieved order: ', req.body);
-        // res.json({
-        //   message: "Order recieved!",
-        //   receivedData: req.body,
-        // });
-      } catch (error) {
-        console.log(error);
-      }
-    });
+    app.use('/api/orders', orderRoutes);
+    //
     //
 
     //DELETE many Orders API
     app.delete(`/api/orders`, auth, async (req, res) => {
       try {
         let ids = req.body;
+        console.log('ids: ', ids);
         let objectIds;
         if (ids) {
           objectIds = ids.filter((id) => ObjectId.isValid(id)).map((id) => new ObjectId(id));
@@ -91,19 +82,19 @@ async function start() {
     });
     //
 
-    //DELETE one Order API
-    app.delete(`/api/orders/:id`, auth, async (req, res) => {
-      try {
-        console.log(req.params.id.trim());
-        const result = await db
-          .collection('flower_orders')
-          .deleteOne({ _id: new ObjectId(req.params.id.trim()) });
-        res.status(200).json({ message: 'Successfully deleted' }, result);
-      } catch (error) {
-        console.log(error);
-      }
-    });
-    //
+    // //DELETE one Order API
+    // app.delete(`/api/orders/:id`, auth, async (req, res) => {
+    //   try {
+    //     console.log(req.params.id.trim());
+    //     const result = await db
+    //       .collection('flower_orders')
+    //       .deleteOne({ _id: new ObjectId(req.params.id.trim()) });
+    //     res.status(200).json({ message: 'Successfully deleted' }, result);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // });
+    // //
   } catch (error) {
     console.error('Server error:', error.message);
   }

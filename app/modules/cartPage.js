@@ -144,8 +144,8 @@ let cartPage = () => {
       const sbmtBtn = document.querySelector('.submitOrder');
       sbmtBtn.addEventListener('click', async function (event) {
         event.preventDefault();
-        M.toast({ html: 'orderSent', classes: 'green', displayLength: 3000 });
         console.log('script from HP.js worked');
+        M.toast({ html: 'Order Sent', classes: 'green', displayLength: 3000 });
         await sendOrder(inCartFlowerData, summPrice);
         setTimeout(() => {
           window.location.href = `./orderDetails.html`;
