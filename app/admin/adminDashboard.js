@@ -65,6 +65,7 @@ let reRenderTable = () => {
   src="../src/cancel_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" />
                         <input
                         id="indeterminate-checkbox"
+                        class="editBtn"
   type="image"
   id="image"
   alt=""
@@ -91,6 +92,9 @@ document.addEventListener('click', async (event) => {
   //DELETING ORDER
   deletingOrder(event);
   //
+  //EDITING ORDER
+  editOrder(event);
+  //
 });
 //
 
@@ -106,6 +110,18 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchOrderList();
 });
 //
+
+//EDITING ORDER
+let editOrder = (event) => {
+  let editPopUp = document.querySelector('edit-popup');
+  if (event.target.classList.contains('editBtn')) {
+    fetchOrders.forEach((element) => {
+      editPopUp.querySelector('.formContainer').innerHTML = `<div>${element._id}</div>`;
+    });
+
+    editPopUp.open(); //LEFT HERE
+  }
+};
 
 //DELETING ORDER
 let deletingOrder = (event) => {

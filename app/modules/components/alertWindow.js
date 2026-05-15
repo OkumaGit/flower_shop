@@ -40,6 +40,5 @@ class AlertWindow extends HTMLElement {
     };
   }
 }
-//LEFT HERE - TO DO THE POP-UP
 
 customElements.define('alert-window', AlertWindow);
