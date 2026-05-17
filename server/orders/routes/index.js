@@ -1,6 +1,7 @@
 const router = require('express').Router();
+const { ReturnDocument } = require('mongodb');
 const auth = require('../../auth/middleware/auth');
-// server / auth / middleware / auth.js;
+const { ObjectId } = require('mongodb');
 
 // POST Orders API
 router.post('/', async (req, res) => {
@@ -17,9 +18,23 @@ router.post('/', async (req, res) => {
 //
 
 //EDIT ORDER
-router.put('/editOrder', async (req, res) => {
+router.put('/editOrder/:id', async (req, res) => {
+  orderId = req.params.id.trim();
   try {
-  } catch (error) {}
+    console.log('Yo');
+    const db = req.app.locals.db;
+    const result = await db
+      .collection('flower_orders')
+      .findOneAndUpdate(
+        { _id: new ObjectId(orderId) },
+        { $set: { first_name: 'Updated first name' } },
+        { returnDocument: 'after' }
+      ); //LEFT HERE
+
+    res.status(201).json({ message: `Order Id: ${orderId}`, result });
+  } catch (error) {
+    console.log('Server error:', error.message);
+  }
 });
 //
 

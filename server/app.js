@@ -7,6 +7,7 @@ const auth = require('./auth/middleware/auth.js');
 const app = express();
 const path = require('path');
 const { ObjectId } = require('mongodb');
+
 app.use(express.json()); // Must for JSON body read
 app.use(express.static(path.join(__dirname, '../app')));
 app.use('/admin', express.static(path.join(__dirname, '../app/admin')));
@@ -91,7 +92,7 @@ async function start() {
     //       .deleteOne({ _id: new ObjectId(req.params.id.trim()) });
     //     res.status(200).json({ message: 'Successfully deleted' }, result);
     //   } catch (error) {
-    //     console.log(error);
+    //     console.error('Error in delete:', error.message);
     //   }
     // });
     // //
