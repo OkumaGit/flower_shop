@@ -21,13 +21,12 @@ router.post('/', async (req, res) => {
 router.put('/editOrder/:id', async (req, res) => {
   orderId = req.params.id.trim();
   try {
-    console.log('Yo');
     const db = req.app.locals.db;
     const result = await db
       .collection('flower_orders')
       .findOneAndUpdate(
         { _id: new ObjectId(orderId) },
-        { $set: { first_name: 'Updated first name' } },
+        { $set: { first_name: 'Updated2 first name' } },
         { returnDocument: 'after' }
       ); //LEFT HERE
 
