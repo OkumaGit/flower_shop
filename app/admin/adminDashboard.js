@@ -115,10 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
 let editOrder = (event) => {
   let editPopUp = document.querySelector('edit-popup');
   if (event.target.classList.contains('editBtn')) {
+    console.log(event.target.closest('tr').querySelector('.orderId').innerHTML.trim());
     fetchOrders.forEach((element) => {
-      editPopUp.querySelector('.formContainer').innerHTML = `<div>${element._id}</div>`;
+      if (
+        element._id.trim() == event.target.closest('tr').querySelector('.orderId').innerHTML.trim()
+      )
+        editPopUp.querySelector('.formContainer').innerHTML = `<div>${element._id}</div>`;
     });
-
     editPopUp.open(); //LEFT HERE
   }
 };

@@ -7,7 +7,6 @@ const auth = require('./auth/middleware/auth.js');
 const app = express();
 const path = require('path');
 const { ObjectId } = require('mongodb');
-
 app.use(express.json()); // Must for JSON body read
 app.use(express.static(path.join(__dirname, '../app')));
 app.use('/admin', express.static(path.join(__dirname, '../app/admin')));

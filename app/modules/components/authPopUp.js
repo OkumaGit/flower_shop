@@ -128,7 +128,6 @@ class AuthPopUp extends HTMLElement {
 
     this.shadowRoot.querySelector('.closeBtn').onclick = (event) => {
       event.preventDefault();
-      console.log('Close happening');
       this.close();
     };
   }
@@ -136,7 +135,4 @@ class AuthPopUp extends HTMLElement {
 
 // Registering our new tag in browser;
 customElements.define('auth-popup', AuthPopUp);
-
-// SPARE COMPONENTS
-// <button class="profileBtn">Profile</button>
 //
