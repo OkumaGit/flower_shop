@@ -1,4 +1,4 @@
-import { getOrdersList, deleteOrder } from './adminMain.js';
+import { getOrdersList, deleteOrder, editOrder } from './adminMain.js';
 let fetchOrders;
 let spanValue = 5;
 let table = document.getElementById('table'); // Capture initial <table>
@@ -93,7 +93,7 @@ document.addEventListener('click', async (event) => {
   deletingOrder(event);
   //
   //EDITING ORDER
-  editOrder(event);
+  editingOrder(event);
   //
 });
 //
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //
 
 //EDITING ORDER
-let editOrder = (event) => {
+let editingOrder = (event) => {
   let editPopUp = document.querySelector('edit-popup');
   if (event.target.classList.contains('editBtn')) {
     console.log(event.target.closest('tr').querySelector('.orderId').innerHTML.trim());
@@ -121,13 +121,20 @@ let editOrder = (event) => {
         element._id.trim() == event.target.closest('tr').querySelector('.orderId').innerHTML.trim()
       ) {
         editPopUp.querySelector('.formContainer').innerHTML = `${element._id}`;
-        editPopUp.querySelector('#editName').value = 'text';
+        editPopUp.querySelector('#editName').value = `${element._id}`;
         editPopUp.querySelector('#editAddress').value = element.address;
       }
     });
-    editPopUp.open(); //LEFT HERE
+    editPopUp.open();
   }
+
+  let confirmBtn = editPopUp.querySelector('.confirmBtn');
+  confirmBtn.onclick = async () => {
+    let toEdit = editPopUp.querySelector('#editAddress').value; // LEFT HERE
+    editOrder(toEdit);
+  };
 };
+//
 
 //DELETING ORDER
 let deletingOrder = (event) => {
@@ -159,8 +166,8 @@ let deletingOrder = (event) => {
       };
     }
   }
-  //
 };
+//
 
 // UPDATING SpanValue AND FORCING reRenderTable()
 // AMOUNT OF ELEMENTS TO SHOW

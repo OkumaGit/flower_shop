@@ -54,3 +54,35 @@ const deleteOrder = async (toDelete) => {
 };
 export { deleteOrder };
 //
+
+//EDIT ORDER //LEFT HERE
+const editOrder = async (toEdit) => {
+  try {
+    console.log('toDelete from adminMain.js', toEdit, 'toDelete length: ', toEdit.length);
+    //Sending data to DB
+    const token = localStorage.getItem('authToken'); //LOADED TOKEN
+    if (token) {
+      console.log('Token loaded in delete: ', token);
+      M.toast({ html: `Order ${toEdit} edited`, classes: 'green', displayLength: 3000 });
+    } else console.log('no token');
+
+    const response = await fetch(`${config.API_URL}/editOrder/6a03666972cf386373090631`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token.trim()}`,
+      },
+      method: 'PUT',
+      body: JSON.stringify(toEdit),
+    });
+
+    if (response.status === 401) {
+      logOut();
+      M.toast({ html: 'Session expired', classes: 'red', displayLength: 2000 });
+    }
+    //
+  } catch (error) {
+    console.error('error in editOrder: ', error.message);
+  }
+};
+export { editOrder };
+//
