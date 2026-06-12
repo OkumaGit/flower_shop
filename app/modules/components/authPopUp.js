@@ -84,10 +84,6 @@ class AuthPopUp extends HTMLElement {
       </style>
       <div class="overlay">
       <div style="display: flex; flex-direction: column; align-items: flex-end;">
-      <input
-  type="image"
-  id="image"
-  alt="" />
       <img style="cursor: pointer" class="closeBtn" src="./src/cancel_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" />
           <form style="display: none;" name='logForm' id='logForm' class='logForm login'>
             <label for='email'>Email</label>

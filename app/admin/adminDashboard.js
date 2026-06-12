@@ -43,15 +43,15 @@ let reRenderTable = () => {
                       </label>
                     </td>
                     <td class="td-dashboard orderId">${element._id}</td>
+                    <td class="td-dashboard orderTime">${element.time ? new Date(element.time).toLocaleString('en-EN') : 'No time'}</td>
                     <td class="td-dashboard">-</td>
-                    <td class="td-dashboard">-</td>
-                    <td class="td-dashboard">${element.items
+                    <td class="td-dashboard orderItems">${element.items
                       .map((item) => {
                         return `${item.Name} x${item.Qty}`;
                       })
                       .join(', ')}</td>
                     <td class="td-dashboard">-</td>
-                    <td class="td-dashboard">${element.address}</td>
+                    <td class="td-dashboard orderAddress">${element.address}</td>
                     <td class="td-dashboard">-</td>
                     <td class="td-dashboard">-</td>
                     <td class="td-dashboard orderName">${element.first_name || element.last_name ? element.first_name + ' ' + element.last_name : '-'}</td>
@@ -119,8 +119,11 @@ let editOrder = (event) => {
     fetchOrders.forEach((element) => {
       if (
         element._id.trim() == event.target.closest('tr').querySelector('.orderId').innerHTML.trim()
-      )
-        editPopUp.querySelector('.formContainer').innerHTML = `<div>${element._id}</div>`;
+      ) {
+        editPopUp.querySelector('.formContainer').innerHTML = `${element._id}`;
+        editPopUp.querySelector('#editName').value = 'text';
+        editPopUp.querySelector('#editAddress').value = element.address;
+      }
     });
     editPopUp.open(); //LEFT HERE
   }
