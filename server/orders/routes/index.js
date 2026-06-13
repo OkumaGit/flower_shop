@@ -21,8 +21,9 @@ router.post('/', async (req, res) => {
 router.put('/editOrder/:id', async (req, res) => {
   data = req.body;
   console.log('recieved body in editOrder: ', data);
-
   orderId = req.params.id.trim();
+  console.log('recieved ID: ', orderId);
+
   try {
     const db = req.app.locals.db;
     const result = await db.collection('flower_orders').findOneAndUpdate(

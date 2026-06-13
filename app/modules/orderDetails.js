@@ -2,7 +2,7 @@ const orderDetails = async () => {
   // PULL NEEDED DATA
   let fromLocalStorageOrderedItems;
   fromLocalStorageOrderedItems = await JSON.parse(localStorage.getItem('orderData'));
-  console.log('OrderData: ', fromLocalStorageOrderedItems);
+  console.log('fromLocalStorageOrdereItems: ', fromLocalStorageOrderedItems);
   //
 
   document.addEventListener('DOMContentLoaded', async function () {
@@ -12,28 +12,21 @@ const orderDetails = async () => {
     orderedItems.style.display = 'flex';
     orderedItems.style.flexDirection = 'column';
     Object.entries(fromLocalStorageOrderedItems).forEach((data) => {
-      console.log(data);
       let orderedItem = document.createElement('div');
       if (data[0] != 'items') {
+        let toRender = data[1];
         if (data[0] == 'summPrice') {
-          orderedItem.innerHTML += `<div style="display: flex; align-items: center; width: 100%">
-      <div>${data[0]}</div>
-      <div style="line-height: 1; border-bottom: 1px dashed #000; height: 1em; margin: 8px 16px; flex: 1 1 auto"></div>
-      <div class = "bold" style="font-weight: 700">$${data[1]}</div>
-    </div>`;
+          toRender = `<div class="bold" style="font-weight:700">
+    $${data[1]}
+  </div>`;
         } else if (data[0] == 'time') {
-          orderedItem.innerHTML += `<div style="display: flex; align-items: center; width: 100%">
+          toRender = new Date(data[1]).toLocaleString('en-EN');
+        } else toRender = data[1];
+        orderedItem.innerHTML += `<div style="display: flex; align-items: center; width: 100%">
       <div>${data[0]}</div>
       <div style="line-height: 1; border-bottom: 1px dashed #000; height: 1em; margin: 8px 16px; flex: 1 1 auto"></div>
-      <div>${new Date(data[1]).toLocaleString('en-EN')}</div>
+      <div>${toRender}</div>
     </div>`;
-        } else {
-          orderedItem.innerHTML += `<div style="display: flex; align-items: center; width: 100%">
-      <div>${data[0]}</div>
-      <div style="line-height: 1; border-bottom: 1px dashed #000; height: 1em; margin: 8px 16px; flex: 1 1 auto"></div>
-      <div>${data[1]}</div>
-    </div>`;
-        } // LEFT HERE
       }
       orderedItems.appendChild(orderedItem);
     });
@@ -41,10 +34,10 @@ const orderDetails = async () => {
 
     // RENDERING orderedItems
     let renderDetailsTo;
-    renderDetailsTo = document.getElementById('fromContactForm'); // Render to
+    renderDetailsTo = document.getElementById('fromContactForm'); // RENDER TO
     let products = document.createElement('div');
     products.className = 'col s12 m12 orderedProducts';
-    // First section
+    // FIRST SECTION
     fromLocalStorageOrderedItems.items.forEach((item) => {
       products.innerHTML += `<div class="col s6 m3 card horizontal "><div class="card-image" style="padding-right: 35px;"><img class="cardImage" style="max-width: 33%" src="${item.Image}" />
       <div style="padding-right: 35px;"><div>${item.Name}</div>

@@ -127,12 +127,13 @@ let editingOrder = (event) => {
     });
     editPopUp.open();
   }
-
   let confirmBtn = editPopUp.querySelector('.confirmBtn');
+  //editPopUp -> confirmBtn.onclick
   confirmBtn.onclick = async () => {
-    let toEdit = editPopUp.querySelector('#editAddress').value; // LEFT HERE
+    let toEdit = editPopUp.querySelector('#editAddress').value.trim(); // LEFT HERE
     editOrder(toEdit);
   };
+  //
 };
 //
 

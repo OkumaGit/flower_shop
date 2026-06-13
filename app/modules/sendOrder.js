@@ -68,8 +68,8 @@ if (document.body.classList.contains('cartPage')) {
 // SENDING ORDER TO DB
 const sendOrder = async function sendOrder(inCartFlowerData, summPrice) {
   console.log('sendOrder function called, order before sending is: ', orderData, summPrice);
-  orderData.summPrice = summPrice;
   orderData.time = Date.now(); // Makes a timestamp
+  orderData.summPrice = summPrice;
   orderData.items = inCartFlowerData;
   localStorage.setItem('orderData', JSON.stringify(orderData));
   // Sending data to DB

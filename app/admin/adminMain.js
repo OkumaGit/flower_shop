@@ -58,22 +58,25 @@ export { deleteOrder };
 //EDIT ORDER //LEFT HERE
 const editOrder = async (toEdit) => {
   try {
-    console.log('toDelete from adminMain.js', toEdit, 'toDelete length: ', toEdit.length);
+    console.log('toEdit from adminMain.js', toEdit, 'toDelete length: ', toEdit.length);
+    const token = localStorage.getItem('authToken'); //LOADED TOKEN FROM localStorage
     //Sending data to DB
-    const token = localStorage.getItem('authToken'); //LOADED TOKEN
+    const response = await fetch(
+      `${config.API_URL}/api/orders/editOrder/6a03666972cf386373090631`, //LEFT HERE
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.trim()}`,
+        },
+        method: 'PUT',
+        body: JSON.stringify({ address: toEdit }),
+      }
+    );
+    console.log('res in editOrder: ', response.status);
     if (token) {
       console.log('Token loaded in delete: ', token);
       M.toast({ html: `Order ${toEdit} edited`, classes: 'green', displayLength: 3000 });
     } else console.log('no token');
-
-    const response = await fetch(`${config.API_URL}/editOrder/6a03666972cf386373090631`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token.trim()}`,
-      },
-      method: 'PUT',
-      body: JSON.stringify(toEdit),
-    });
 
     if (response.status === 401) {
       logOut();
