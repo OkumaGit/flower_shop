@@ -1,5 +1,3 @@
-import { flowerData } from './flowersRender.js';
-import { sendOrder } from './sendOrder.js';
 import { addFlowersToCart } from './addFlowersToCart.js';
 
 //ADD FLOWERS TO CART

@@ -40,7 +40,7 @@ router.put('/editOrder/:id', async (req, res) => {
 });
 //
 
-//     //DELETE many Orders API
+// //DELETE many Orders API
 //     app.delete(`/api/orders`, auth, async (req, res) => {
 //       try {
 //         let ids = req.body;

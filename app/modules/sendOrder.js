@@ -1,7 +1,7 @@
 import config from '../config.js';
 
 let formData = [];
-let formCheck;
+
 document.addEventListener('DOMContentLoaded', function () {
   formData = [
     { name: 'first_name', element: document.querySelector('.first_name') }, // Required
@@ -10,9 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
     { name: 'email', element: document.querySelector('.email') },
     { name: 'address', element: document.querySelector('.address') }, // Required
   ];
-  //CHECK FORM IF VALID
-  formCheck = document.querySelector('.form');
-  //
 });
 
 // CHECK IF CART AND FORM == FILLED
@@ -21,27 +18,34 @@ let orderData = {};
 const sbmtBtn = document.querySelector('.submitOrder');
 
 function checkIfLegit() {
+  //CHECK FORM IF VALID
+  let formCheck = document.querySelector('.form');
+
   const allFilled = formCheck.checkValidity(); //AS EXTRA DEFAULT BROWSER CHECK METHOD
+  !allFilled ? formCheck.reportValidity() : [];
+  //
+
   formData.forEach(({ name, element }) => {
     if (element.value.trim() !== '') {
       orderData[name] = element.value;
     }
   });
   console.log('orderData from forEach: ', orderData);
-
-  if (
-    orderData.first_name.trim() !== '' &&
-    orderData.phone.trim() !== '' &&
-    !isNaN(orderData.phone) &&
-    orderData.address.trim() !== '' &&
-    isNaN(orderData.first_name) &&
-    isNaN(orderData.last_name)
-  ) {
-    //LEFT HERE
-    isValid = true;
-  } else {
-    isValid = false;
-    console.log('Error');
+  if (allFilled) {
+    if (
+      orderData.first_name.trim() !== '' &&
+      orderData.phone.trim() !== '' &&
+      !isNaN(orderData.phone) &&
+      orderData.address.trim() !== '' &&
+      isNaN(orderData.first_name) &&
+      isNaN(orderData.last_name)
+    ) {
+      //LEFT HERE
+      isValid = true;
+    } else {
+      isValid = false;
+      console.log('Error');
+    }
   }
 
   if (

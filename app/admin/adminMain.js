@@ -55,7 +55,7 @@ const deleteOrder = async (toDelete) => {
 export { deleteOrder };
 //
 
-//EDIT ORDER //LEFT HERE
+//EDIT ORDER
 const editOrder = async (toEdit) => {
   try {
     console.log('toEdit from adminMain.js', toEdit, 'toDelete length: ', toEdit.length);

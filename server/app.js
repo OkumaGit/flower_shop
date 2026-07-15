@@ -61,7 +61,7 @@ async function start() {
     //
     //
 
-    //DELETE many Orders API
+    //DELETE many or one Orders API
     app.delete(`/api/orders`, auth, async (req, res) => {
       try {
         let ids = req.body;
@@ -82,7 +82,7 @@ async function start() {
     });
     //
 
-    // //DELETE one Order API
+    // //DELETE one Order API --- ??
     // app.delete(`/api/orders/:id`, auth, async (req, res) => {
     //   try {
     //     console.log(req.params.id.trim());
