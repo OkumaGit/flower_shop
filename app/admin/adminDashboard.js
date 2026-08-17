@@ -54,7 +54,7 @@ let reRenderTable = () => {
                     <td class="td-dashboard orderAddress">${element.address}</td>
                     <td class="td-dashboard">-</td>
                     <td class="td-dashboard">-</td>
-                    <td class="td-dashboard orderName">${element.first_name || element.last_name ? element.first_name + ' ' + element.last_name : '-'}</td>
+                    <td class="td-dashboard orderName">${element.first_name && element.last_name ? element.first_name + ' ' + element.last_name : '-'}</td>
                     <td class="td-dashboard">$${element.summPrice}</td>
                     <td class="td-dashboard">
                       <input
@@ -93,7 +93,9 @@ document.addEventListener('click', async (event) => {
   deletingOrder(event);
   //
   //EDITING ORDER
-  editingOrder(event);
+  if (event.target.classList.contains('editBtn')) {
+    editingOrder(event);
+  }
   //
 });
 //
@@ -112,27 +114,43 @@ document.addEventListener('DOMContentLoaded', () => {
 //
 
 //EDITING ORDER
-let editingOrder = (event) => {
+let editingOrder = async (event) => {
   let editPopUp = document.querySelector('edit-popup');
-  if (event.target.classList.contains('editBtn')) {
-    console.log(event.target.closest('tr').querySelector('.orderId').innerHTML.trim());
-    fetchOrders.forEach((element) => {
-      if (
-        element._id.trim() == event.target.closest('tr').querySelector('.orderId').innerHTML.trim()
-      ) {
-        editPopUp.querySelector('.formContainer').innerHTML = `${element._id}`;
-        editPopUp.querySelector('#editName').value = `${element._id}`;
-        editPopUp.querySelector('#editAddress').value = element.address;
-      }
-    });
-    editPopUp.open();
-  }
+  console.log(
+    'closest tr orderId: ',
+    event.target.closest('tr').querySelector('.orderId').innerHTML.trim()
+  );
+
+  //PRESET POPUP FIEDLS
+  fetchOrders.forEach((element) => {
+    if (
+      element._id.trim() == event.target.closest('tr').querySelector('.orderId').innerHTML.trim()
+    ) {
+      editPopUp.querySelector('.formContainer').innerHTML = `${element._id}`;
+      editPopUp.querySelector('#editFirstName').value = `${element.first_name}`;
+      editPopUp.querySelector('#editLastName').value = `${element.last_name}`;
+      editPopUp.querySelector('#editAddress').value = element.address;
+    }
+  });
+  //
+  editPopUp.open();
+
+  // ON confirmBtn PRESS
   let confirmBtn = editPopUp.querySelector('.confirmBtn');
   //editPopUp -> confirmBtn.onclick
   confirmBtn.onclick = async () => {
-    let toEdit = editPopUp.querySelector('#editAddress').value.trim(); // LEFT HERE
-    editOrder(toEdit);
+    let toEdit = {
+      id: editPopUp.querySelector('.formContainer').innerHTML.trim(),
+      address: editPopUp.querySelector('#editAddress').value.trim(),
+      first_name: editPopUp.querySelector('#editFirstName').value.trim(),
+      last_name: editPopUp.querySelector('#editLastName').value.trim(),
+    };
+
+    await editOrder(toEdit);
+    fetchOrderList();
+    editPopUp.close(); //LEFT HERE (add refresh page)
   };
+  //
   //
 };
 //

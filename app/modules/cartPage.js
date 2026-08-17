@@ -59,6 +59,7 @@ let cartPage = () => {
       addFlowersToCart(event, flowerData, adjustCardNumber, inCartFlowerData);
     }
   });
+  //
 
   //ADJUST CART NUMBER
   function adjustCardNumber() {
@@ -85,59 +86,23 @@ let cartPage = () => {
   }
   //
 
+  // GETTING FLOWERS FROM flowerData ARRAY
+  let fromLocalStorage = JSON.parse(localStorage.getItem('inCartFlowerData'))
+    ? JSON.parse(localStorage.getItem('inCartFlowerData'))
+    : console.log('No items in cart');
+  let parent = document.getElementById('productsInCart')
+    ? document.getElementById('productsInCart')
+    : null;
+  //
+
   // RENDER IN SHOPPING CARD
   document.addEventListener('DOMContentLoaded', function () {
     adjustCardNumber();
-    // GETTING FLOWERS FROM flowerData ARRAY
-    let fromLocalStorage = JSON.parse(localStorage.getItem('inCartFlowerData'))
-      ? JSON.parse(localStorage.getItem('inCartFlowerData'))
-      : console.log('No items in cart');
-    let parent = document.getElementById('productsInCart')
-      ? document.getElementById('productsInCart')
-      : null;
 
-    // RENDERING FLOWERS TO CART DOM FROM flowerData(fromLocalStorage) ARRAY
-    function renderInCart() {
-      console.log('Triggered renderInCart()');
-      fromLocalStorage.forEach((data) => {
-        var newDiv = document.createElement('div');
-        newDiv.className = 'col s12 m12';
-        newDiv.innerHTML = `<div class="card horizontal">
-            <div class="card-image" style="max-width: 33%">
-                      <img class ='cardImage' src="${data.Image}" />
-            </div>
-            <div class="card-stacked">
-                      <div class="card-content" style="flex-grow: 0">
-                        <span class="card-title">${data.Name}</span>
-                      </div>
-                      <div class="card-action" style="display: flex; align-items: center; justify-content: space-between"> 
-                      <div style='flex-grow: 0'>
-                      <a href='#' ><img class='cardDeleteItem' src='./src/cancel_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg' /></a>
-                      </div>
-                           <div class='priceAndQty' style='flex-grow: 1'> 
-                                  <div>$${data.Price}</div>
-                          <input
-                          type="number"
-                          id="cardQuantity"
-                          name="cardQuantity"
-                          min="0"
-                          value="${data.Qty}"
-                          />
-                          </div>
-                      </div>
-            </div>
-                              </div>`;
-        parent ? parent.appendChild(newDiv) : null;
-      });
-    }
+    // DEFINE AND SHOW WHICH PAGE WE ARE ATM
     if (document.body.classList.contains('cartPage')) {
       renderInCart(summ);
     }
-  });
-  //
-
-  // DEFINE AND SHOW WHICH PAGE WE ARE ATM
-  document.addEventListener('DOMContentLoaded', function () {
     if (document.body.classList.contains('cartPage')) {
       adjustTotalPrice(); // UPDATE SUMMARY PRICE IN CART
       // SUBMIT ORDER
@@ -165,6 +130,52 @@ let cartPage = () => {
       //
     }
   });
+  //
+
+  // RENDERING FLOWERS TO CART DOM FROM flowerData(fromLocalStorage) ARRAY
+  function renderInCart() {
+    console.log('Triggered renderInCart()');
+
+    if (!fromLocalStorage || fromLocalStorage.length === 0) {
+      var newDiv = document.createElement('div');
+      newDiv.className = 'col s12 m12';
+      newDiv.style = 'height: 100%';
+      newDiv.innerHTML = `<div style="display: flex;width: 100%;height: 100%; opacity: 50%; align-items: center;justify-content: center;"><h5>No products in cart</h5></div>`;
+      parent ? parent.appendChild(newDiv) : null;
+    } else {
+      fromLocalStorage.forEach((data) => {
+        var newDiv = document.createElement('div');
+        newDiv.className = 'col s12 m12';
+        newDiv.innerHTML = `<div class="card horizontal">
+            <div class="card-image" style="max-width: 33%">
+                      <img class ='cardImage' src="${data.Image}" />
+            </div>
+            <div class="card-stacked">
+                      <div class="card-content" style="flex-grow: 0">
+                        <span class="card-title">${data.Name}</span>
+                      </div>
+                      <div class="card-action" style="display: flex; align-items: center; justify-content: space-between"> 
+                      <div style='flex-grow: 0'>
+                      <a href='#' ><img class='cardDeleteItem' src='./src/cancel_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg' /></a>
+                      </div>
+                           <div class='priceAndQty' style='flex-grow: 1'> 
+                                  <div>$${data.Price}</div>
+                          <input
+                          type="number"
+                          id="cardQuantity"
+                          name="cardQuantity"
+                          min="0"
+                          value="${data.Qty}"
+                          />
+                          </div>
+                      </div>
+            </div>
+            </div>`;
+        parent ? parent.appendChild(newDiv) : null;
+      });
+    }
+  }
+  //
 };
 
 export { cartPage };

@@ -15,6 +15,7 @@ class EditPopUp extends HTMLElement {
 
   open() {
     this.querySelector('.overlay').classList.add('active');
+    // this.querySelector('.nameDiv input').disabled = 'true';
   }
 
   render() {
@@ -52,39 +53,33 @@ class EditPopUp extends HTMLElement {
             <strong>Order №</strong>
             <div class="formContainer"></div>
             <!-- name -->
-            <label for="name">Name (4 to 8 characters):</label>
+
             <div class="nameDiv">
-              <input
-                type="text"
-                id="editName"
-                name="name"
-                minlength="4"
-                maxlength="8"
-                size="10"
-                value=""
-                disabled
-              />
+              <label for="firstName">First name:</label>
+              <input type="text" id="editFirstName" name="firstName" size="10" value="" disabled />
+              <label for="lastName">Last name:</label>
+              <input type="text" id="editLastName" name="lastName" size="10" value="" disabled />
               <input
                 type="image"
                 id="image"
-                class="editBtn"
+                class="activateFieldBtn"
                 alt=""
                 src="../src/edit_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
               />
             </div>
             <!-- address -->
-            <label for="address">Address (4 to 8 characters):</label>
+            <label for="address">Address (4 to 20 characters):</label>
             <input
               type="text"
               id="editAddress"
               name="address"
               minlength="4"
-              maxlength="8"
+              maxlength="20"
               size="10"
             />
             <!-- qty -->
-            <label for="name">Qty (4 to 8 characters):</label>
-            <input type="text" id="editQty" name="qty" minlength="4" maxlength="8" size="10" />
+            <label for="name">Qty:</label>
+            <input type="text" id="editQty" name="qty" minlength="1" maxlength="4" size="10" />
             <button type="submit" class="confirmBtn">Confirm</button>
             <button type="submit" class="cancelBtn">Cancel</button>
           </div>
@@ -100,9 +95,13 @@ class EditPopUp extends HTMLElement {
       event.preventDefault();
       this.close();
     };
-    this.querySelector('.editBtn').onclick = (event) => {
+    this.querySelector('.activateFieldBtn').onclick = (event) => {
       event.preventDefault();
-      event.target.closest('.nameDiv').querySelector('input').disabled = false;
+      let disabledFields = event.target.closest('.nameDiv').querySelectorAll('input');
+      disabledFields.forEach((btn) => {
+        btn.disabled = false;
+      });
+      // event.target.closest('.nameDiv').querySelector('input').disabled = false;
       event.target.style.display = 'none';
     };
   }

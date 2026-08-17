@@ -5,7 +5,6 @@ import { logOut } from '../modules/authentification/logOut.js';
 //GETORDERSLIST
 const getOrdersList = async function getOrdersList() {
   try {
-    // const response = await fetch("http://localhost:4000/api/ordersList");
     const response = await fetch(`${config.API_URL}/api/ordersList`);
     const fetchedOrdersList = await response.json();
     return fetchedOrdersList;
@@ -61,21 +60,25 @@ const editOrder = async (toEdit) => {
     console.log('toEdit from adminMain.js', toEdit, 'toDelete length: ', toEdit.length);
     const token = localStorage.getItem('authToken'); //LOADED TOKEN FROM localStorage
     //Sending data to DB
+
     const response = await fetch(
-      `${config.API_URL}/api/orders/editOrder/6a03666972cf386373090631`, //LEFT HERE
+      `${config.API_URL}/api/orders/editOrder/${toEdit.id}`,
+      // ${config.API_URL}/api/orders/editOrder/6a03666972cf386373090631`
       {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token.trim()}`,
         },
         method: 'PUT',
-        body: JSON.stringify({ address: toEdit }),
+        // body: JSON.stringify({ address: toEdit.address }),
+        body: JSON.stringify({ toEdit }),
       }
     );
+
     console.log('res in editOrder: ', response.status);
     if (token) {
-      console.log('Token loaded in delete: ', token);
-      M.toast({ html: `Order ${toEdit} edited`, classes: 'green', displayLength: 3000 });
+      console.log('Token loaded in editOrder: ', token);
+      M.toast({ html: `Order ${toEdit.id} edited`, classes: 'green', displayLength: 3000 });
     } else console.log('no token');
 
     if (response.status === 401) {

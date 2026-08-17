@@ -34,17 +34,18 @@ function checkIfLegit() {
   if (allFilled) {
     if (
       orderData.first_name.trim() !== '' &&
+      isNaN(orderData.first_name) &&
+      orderData.last_name.trim() !== '' &&
+      isNaN(orderData.last_name) &&
       orderData.phone.trim() !== '' &&
       !isNaN(orderData.phone) &&
-      orderData.address.trim() !== '' &&
-      isNaN(orderData.first_name) &&
-      isNaN(orderData.last_name)
+      orderData.address.trim() !== ''
     ) {
       //LEFT HERE
       isValid = true;
     } else {
       isValid = false;
-      console.log('Error');
+      console.log('Error in entered data');
     }
   }
 

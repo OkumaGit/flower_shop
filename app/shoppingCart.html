@@ -15,7 +15,7 @@
     <script type="module" src="./script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./styles.css" />
-    <link rel="icon" type="image/png" href="./src/Gemini_Generated_Image_lkrk7xlkrk7xlkrk.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
   </head>
   <body class="cartPage">
     <header>
@@ -102,6 +102,10 @@
                   flex-shrink: 1;
                 "
               >
+              <div class="input-field col s6 m6">
+                <input class="phone" name="phone" type="tel" required pattern="[0-9\s+\-\(\)]{5,20}" placeholder="Telephone *" title="Only number allowed">
+                <!-- LEFT HERE -->
+              </div>
                 <div class="input-field col s6 m6">
                   <input
                     class="first_name"
@@ -138,6 +142,29 @@
                   <label for="message">Address *</label>
                 </div>
               </div>
+    <!-- Payment details -->
+              <!-- <div class="col s12 m12" style="flex-shrink: 0">
+                <h5 class="section-title">Payment details</h5>
+              </div>
+              <div
+                class="formBlock col s12 m12"
+                style="
+                  height: 10%;
+                  align-content: center;
+                  align-items: center;
+                  flex-shrink: 1;
+                "
+              >
+              <div class="input-field col s6 m6">
+              <input type="radio" class="withCash" id="withCash" name="withCash" required/>
+              <label for="withCash">Cash</label>
+              </div>
+              <div class="input-field col s6 m6">
+              <input type="radio" class="withCard" id="withCard" required/>
+              <label for="withCash">Card</label>
+              </div>
+              </div> -->
+    <!--   -->
             </div>
             <div
               id="productsInCart"

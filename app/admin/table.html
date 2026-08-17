@@ -5,9 +5,11 @@
      - Status badges, action buttons (mark ready, cancel)
      - Sample data (JS) — replace with your API/data source
      - No external libs; copy-paste to a file and open in browser
+
+     TEST PAGE. TO DELETE LATER
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
@@ -23,8 +25,15 @@
         --danger: #ef4444;
         --surface: #0b1220;
         --glass: rgba(255, 255, 255, 0.03);
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-          Roboto, "Helvetica Neue", Arial;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          'Helvetica Neue',
+          Arial;
       }
       * {
         box-sizing: border-box;
@@ -51,11 +60,7 @@
         margin: 0;
       }
       .card {
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.02),
-          rgba(255, 255, 255, 0.01)
-        );
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
         border-radius: 12px;
         padding: 14px;
         box-shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
@@ -108,21 +113,13 @@
       th {
         position: sticky;
         top: 0;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.01),
-          rgba(255, 255, 255, 0)
-        );
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0));
         backdrop-filter: blur(2px);
         z-index: 2;
         color: var(--muted);
       }
       tr:hover td {
-        background: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.01),
-          rgba(255, 255, 255, 0)
-        );
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0));
       }
       .small {
         font-size: 13px;
@@ -206,11 +203,7 @@
           <div class="small">Управление и статус заказов магазина суши</div>
         </div>
         <div class="controls">
-          <input
-            id="search"
-            class="input"
-            placeholder="Поиск: номер, имя, адрес, товар..."
-          />
+          <input id="search" class="input" placeholder="Поиск: номер, имя, адрес, товар..." />
           <select id="filterStatus" class="input">
             <option value="">Все статусы</option>
             <option value="pending">Ожидает</option>
@@ -262,54 +255,54 @@
       // ===== Sample data =====
       const ORDERS = [
         {
-          id: "S-1001",
-          time: "2025-11-20 18:12",
-          customer: "Олег Иванов",
+          id: 'S-1001',
+          time: '2025-11-20 18:12',
+          customer: 'Олег Иванов',
           items: 3,
           total: 5200,
-          address: "Regensburg, Markt 12",
-          payment: "Card",
-          status: "pending",
+          address: 'Regensburg, Markt 12',
+          payment: 'Card',
+          status: 'pending',
         },
         {
-          id: "S-1002",
-          time: "2025-11-20 18:20",
-          customer: "Анна Петрова",
+          id: 'S-1002',
+          time: '2025-11-20 18:20',
+          customer: 'Анна Петрова',
           items: 2,
           total: 3400,
-          address: "Regensburg, Domplatz 5",
-          payment: "Cash",
-          status: "preparing",
+          address: 'Regensburg, Domplatz 5',
+          payment: 'Cash',
+          status: 'preparing',
         },
         {
-          id: "S-1003",
-          time: "2025-11-20 18:31",
-          customer: "Иван Назаренко",
+          id: 'S-1003',
+          time: '2025-11-20 18:31',
+          customer: 'Иван Назаренко',
           items: 4,
           total: 7200,
-          address: "Regensburg, Bahnhofstr. 8",
-          payment: "Card",
-          status: "ready",
+          address: 'Regensburg, Bahnhofstr. 8',
+          payment: 'Card',
+          status: 'ready',
         },
         {
-          id: "S-1004",
-          time: "2025-11-20 18:40",
-          customer: "Мария К.",
+          id: 'S-1004',
+          time: '2025-11-20 18:40',
+          customer: 'Мария К.',
           items: 1,
           total: 1200,
-          address: "Regensburg, Gartenweg 2",
-          payment: "Online",
-          status: "cancel",
+          address: 'Regensburg, Gartenweg 2',
+          payment: 'Online',
+          status: 'cancel',
         },
         {
-          id: "S-1005",
-          time: "2025-11-20 18:45",
-          customer: "Team Office",
+          id: 'S-1005',
+          time: '2025-11-20 18:45',
+          customer: 'Team Office',
           items: 8,
           total: 15200,
-          address: "Regensburg, Bismarckstr. 36",
-          payment: "Invoice",
-          status: "preparing",
+          address: 'Regensburg, Bismarckstr. 36',
+          payment: 'Invoice',
+          status: 'preparing',
         },
         // ... add more rows for testing
       ];
@@ -317,10 +310,10 @@
       // ===== State =====
       let state = {
         data: ORDERS.slice(),
-        sortKey: "id",
+        sortKey: 'id',
         sortAsc: true,
-        q: "",
-        status: "",
+        q: '',
+        status: '',
         page: 1,
         pageSize: 5,
       };
@@ -328,23 +321,23 @@
       // ===== Utilities =====
       function formatMoney(cents) {
         // prices already in cents-like integers (use localization if needed)
-        return (cents / 100).toFixed(2).replace(".", ",") + " €";
+        return (cents / 100).toFixed(2).replace('.', ',') + ' €';
       }
 
       function createBadge(status) {
         const map = {
-          pending: "Ожидает",
-          preparing: "Готовится",
-          ready: "Готов",
-          cancel: "Отмена",
+          pending: 'Ожидает',
+          preparing: 'Готовится',
+          ready: 'Готов',
+          cancel: 'Отмена',
         };
         const cls =
           {
-            pending: "pending",
-            preparing: "preparing",
-            ready: "ready",
-            cancel: "cancel",
-          }[status] || "pending";
+            pending: 'pending',
+            preparing: 'preparing',
+            ready: 'ready',
+            cancel: 'cancel',
+          }[status] || 'pending';
         return `<span class="badge ${cls}" aria-label="status-${status}">${
           map[status] || status
         }</span>`;
@@ -352,7 +345,7 @@
 
       // ===== Render =====
       function render() {
-        const tbody = document.getElementById("tbody");
+        const tbody = document.getElementById('tbody');
         let filtered = state.data.filter((r) => {
           if (state.status && r.status !== state.status) return false;
           if (!state.q) return true;
@@ -360,7 +353,7 @@
           return (
             r.id.toLowerCase().includes(q) ||
             r.customer.toLowerCase().includes(q) ||
-            (r.address || "").toLowerCase().includes(q)
+            (r.address || '').toLowerCase().includes(q)
           );
         });
 
@@ -369,7 +362,7 @@
           const k = state.sortKey;
           const va = a[k];
           const vb = b[k];
-          if (typeof va === "number" && typeof vb === "number")
+          if (typeof va === 'number' && typeof vb === 'number')
             return state.sortAsc ? va - vb : vb - va;
           return state.sortAsc
             ? String(va).localeCompare(String(vb))
@@ -395,27 +388,25 @@
     <td class="small">${order.payment}</td>
     <td>${createBadge(order.status)}</td>
     <td class="actions">
-      <button class="action-btn" onclick="markReady('${
-        order.id
-      }')">Готов</button>
+      <button class="action-btn" onclick="markReady('${order.id}')">Готов</button>
       <button class="action-btn" onclick="cancel('${order.id}')">Отмена</button>
     </td>
   </tr>`
           )
-          .join("");
+          .join('');
 
-        document.getElementById("summary").textContent = `Показано ${
+        document.getElementById('summary').textContent = `Показано ${
           start + 1
         }-${start + pageItems.length} из ${total} заказов`;
         renderPagination(pages);
       }
 
       function renderPagination(pages) {
-        const box = document.getElementById("pagination");
-        box.innerHTML = "";
+        const box = document.getElementById('pagination');
+        box.innerHTML = '';
         for (let i = 1; i <= pages; i++) {
-          const el = document.createElement("button");
-          el.className = "page-num" + (i === state.page ? " active" : "");
+          const el = document.createElement('button');
+          el.className = 'page-num' + (i === state.page ? ' active' : '');
           el.textContent = i;
           el.onclick = () => {
             state.page = i;
@@ -429,35 +420,33 @@
       function markReady(id) {
         const idx = state.data.findIndex((r) => r.id === id);
         if (idx === -1) return;
-        state.data[idx].status = "ready";
+        state.data[idx].status = 'ready';
         render();
       }
       function cancel(id) {
         const idx = state.data.findIndex((r) => r.id === id);
         if (idx === -1) return;
-        state.data[idx].status = "cancel";
+        state.data[idx].status = 'cancel';
         render();
       }
 
       // ===== Events =====
-      document.getElementById("search").addEventListener("input", (e) => {
+      document.getElementById('search').addEventListener('input', (e) => {
         state.q = e.target.value;
         state.page = 1;
         render();
       });
-      document
-        .getElementById("filterStatus")
-        .addEventListener("change", (e) => {
-          state.status = e.target.value;
-          state.page = 1;
-          render();
-        });
+      document.getElementById('filterStatus').addEventListener('change', (e) => {
+        state.status = e.target.value;
+        state.page = 1;
+        render();
+      });
 
       // sorting by clicking headers
-      document.querySelectorAll("th[data-key]").forEach((th) => {
-        th.style.cursor = "pointer";
-        th.addEventListener("click", () => {
-          const key = th.getAttribute("data-key");
+      document.querySelectorAll('th[data-key]').forEach((th) => {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', () => {
+          const key = th.getAttribute('data-key');
           if (state.sortKey === key) state.sortAsc = !state.sortAsc;
           else {
             state.sortKey = key;
@@ -469,26 +458,15 @@
 
       // CSV export
       function toCSV(rows) {
-        const cols = [
-          "id",
-          "time",
-          "customer",
-          "items",
-          "total",
-          "address",
-          "payment",
-          "status",
-        ];
-        const lines = [cols.join(",")];
+        const cols = ['id', 'time', 'customer', 'items', 'total', 'address', 'payment', 'status'];
+        const lines = [cols.join(',')];
         for (const r of rows) {
-          const vals = cols.map(
-            (c) => '"' + String(r[c] || "").replace(/"/g, '""') + '"'
-          );
-          lines.push(vals.join(","));
+          const vals = cols.map((c) => '"' + String(r[c] || '').replace(/"/g, '""') + '"');
+          lines.push(vals.join(','));
         }
-        return lines.join("\n");
+        return lines.join('\n');
       }
-      document.getElementById("exportCsv").addEventListener("click", () => {
+      document.getElementById('exportCsv').addEventListener('click', () => {
         // export currently filtered results
         const q = state.q.toLowerCase();
         const filtered = state.data.filter((r) => {
@@ -497,15 +475,15 @@
           return (
             r.id.toLowerCase().includes(q) ||
             r.customer.toLowerCase().includes(q) ||
-            (r.address || "").toLowerCase().includes(q)
+            (r.address || '').toLowerCase().includes(q)
           );
         });
         const csv = toCSV(filtered);
-        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = url;
-        a.download = "sushi-orders.csv";
+        a.download = 'sushi-orders.csv';
         document.body.appendChild(a);
         a.click();
         a.remove();

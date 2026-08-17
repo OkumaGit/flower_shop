@@ -1,4 +1,5 @@
 import { addFlowersToCart } from './addFlowersToCart.js';
+import { flowerData } from './flowersRender.js';
 
 //ADD FLOWERS TO CART
 // SUMM AND SAVE FLOWERS IN CART

@@ -19,19 +19,21 @@ router.post('/', async (req, res) => {
 
 //EDIT ORDER
 router.put('/editOrder/:id', async (req, res) => {
-  data = req.body;
-  console.log('recieved body in editOrder: ', data);
+  // data = req.body;
+  const { toEdit } = req.body;
+  console.log('recieved body from editOrder: ', req.body);
   orderId = req.params.id.trim();
   console.log('recieved ID: ', orderId);
 
   try {
     const db = req.app.locals.db;
-    const result = await db.collection('flower_orders').findOneAndUpdate(
-      { _id: new ObjectId(orderId) },
-      // { $set: { first_name: 'Updated2 first name' } },
-      { $set: { address: data.address } },
-      { returnDocument: 'after' }
-    ); //LEFT HERE
+    const result = await db
+      .collection('flower_orders')
+      .findOneAndUpdate(
+        { _id: new ObjectId(orderId) },
+        { $set: toEdit },
+        { returnDocument: 'after' }
+      );
 
     res.status(201).json({ message: `Order Id: ${orderId}`, result });
   } catch (error) {
