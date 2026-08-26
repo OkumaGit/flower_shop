@@ -112,6 +112,15 @@ let cartPage = () => {
         console.log('script from HP.js worked');
         await sendOrder(inCartFlowerData, summPrice);
         M.toast({ html: 'Order Sent', classes: 'green', displayLength: 3000 });
+
+        //If card payment method selected
+        const cardChecker = document.querySelector('.withCard');
+        if (cardChecker.checked == true) {
+          setTimeout(() => {
+            window.location.href = `?`;
+          }, 1000);
+        }
+        //
         setTimeout(() => {
           window.location.href = `./orderDetails.html`;
         }, 1000);

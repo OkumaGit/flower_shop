@@ -75,117 +75,124 @@
     </header>
     <main style="padding: 0">
       <!-- <form class="form" action="/app/orderDetails.html"> -->
-        <form class="form">
-      <div class="container">
-        <div class="row">
-          <div class="contentWrapper">
-            <div
-              id="contactForm"
-              class="col s12 m6"
-              style="
-                border: 1px solid #e4e4e4;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-              "
-            >
-              <div class="col s12 m12" style="flex-shrink: 0">
-                <h5 class="section-title">Contact details</h5>
-              </div>
-              
+      <form class="form">
+        <div class="container">
+          <div class="row">
+
+            <div class="contentWrapperLeft" >
               <div
-                class="formBlock col s12 m12"
-                style="
-                  height: 80%;
-                  align-content: center;
-                  align-items: center;
-                  flex-shrink: 1;
+                id="contactForm"
+                class="col s12 m6"
+                style="min-height: 70vh; 
+                  border: 1px solid #e4e4e4;
+                  display: flex;
+                  flex-direction: column;
                 "
               >
-              <div class="input-field col s6 m6">
-                <input class="phone" name="phone" type="tel" required pattern="[0-9\s+\-\(\)]{5,20}" placeholder="Telephone *" title="Only number allowed">
-                <!-- LEFT HERE -->
-              </div>
-                <div class="input-field col s6 m6">
-                  <input
-                    class="first_name"
-                    id="first_name"
-                    type="text"
-                    required
-                  />
-                  <label for="first_name" class="">First Name *</label>
+                <div class="col s12 m12" >
+                  <h5 class="section-title">Contact details</h5>
                 </div>
-                <div class="input-field col s6 m6">
-                  <input
-                    class="last_name"
-                    id="last_name"
-                    type="text"
-                    required
-                  />
-                  <label for="last_name">Last Name *</label>
+                <div class="row">
+                  <div
+                    class=" col s12 m12"
+                    style="
+                      align-content: center;
+                      align-items: center;
+                      
+                    "
+                  >
+                    <div class="input-field col s6 m6">
+                      <input class="phone" name="phone" type="tel" required pattern="[0-9\s+\-\(\)]{5,20}" placeholder="Telephone *" title="Only number allowed">
+                      <!-- LEFT HERE -->
+                    </div>
+                    <div class="input-field col s6 m6">
+                      <input
+                        class="first_name"
+                        id="first_name"
+                        type="text"
+                        required
+                      />
+                      <label for="first_name" class="">First Name *</label>
+                    </div>
+                    <div class="input-field col s6 m6">
+                      <input
+                        class="last_name"
+                        id="last_name"
+                        type="text"
+                        required
+                      />
+                      <label for="last_name">Last Name *</label>
+                    </div>
+                    <div class="input-field col s6 m6">
+                      <input class="phone" id="phone" type="text" required/>
+                      <label for="phone">Phone *</label>
+                    </div>
+                    <div class="input-field col s6 m6">
+                      <input class="email" id="email" type="text" required/>
+                      <label for="email">Email *</label>
+                    </div>
+                    <div class="input-field col s12 m12">
+                      <input
+                        class="address"
+                        id="message"
+                        type="text"
+                        required
+                      ></input>
+                      <label for="message">Address *</label>
+                    </div>
+                  </div>
                 </div>
-                <div class="input-field col s6 m6">
-                  <input class="phone" id="phone" type="text" required/>
-                  <label for="phone">Phone *</label>
-                </div>
-                <div class="input-field col s6 m6">
-                  <input class="email" id="email" type="text" required/>
-                  <label for="email">Email *</label>
-                </div>
-                <div class="input-field col s12 m12">
-                  <input
-                    class="address"
-                    id="message"
-                    type="text"
-                    required
-                  ></input>
-                  <label for="message">Address *</label>
-                </div>
-              </div>
-    <!-- Payment details -->
-              <!-- <div class="col s12 m12" style="flex-shrink: 0">
-                <h5 class="section-title">Payment details</h5>
-              </div>
-              <div
-                class="formBlock col s12 m12"
-                style="
-                  height: 10%;
-                  align-content: center;
-                  align-items: center;
-                  flex-shrink: 1;
-                "
-              >
-              <div class="input-field col s6 m6">
-              <input type="radio" class="withCash" id="withCash" name="withCash" required/>
-              <label for="withCash">Cash</label>
-              </div>
-              <div class="input-field col s6 m6">
-              <input type="radio" class="withCard" id="withCard" required/>
-              <label for="withCash">Card</label>
-              </div>
-              </div> -->
-    <!--   -->
+      <!-- Payment details -->
+      <div class="row">
+          <div class="col s12 m12" style="padding-bottom: 20px;">
+            <h5 class="section-title">Payment details</h5>
+          </div>
+          <div
+            class="col s12 m12"
+            style="
+              align-content: center;
+              align-items: center;"
+          >
+            <div class="col s6 m6">
+              <label for="withCash">
+                <input type="radio" class="withCash" id="withCash" value="Cash" name="paymentMethod" checked required/>
+                <span>Cash</span>
+              </label>
+            </div>
+            <div class="col s6 m6">
+              <label for="withCard">
+                <input type="radio" class="withCard" id="withCard" value="Card" name="paymentMethod" required/>
+                <span>Card</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      <!--   -->
+      </div>
             </div>
             <div
               id="productsInCart"
               class="col s12 m6"
-              style="border: 1px solid #e4e4e4; overflow: scroll; height: 100%"
-            >
-              <!-- Procudcts are inserted here -->
+              style="border: 1px solid #e4e4e4; overflow: scroll; height: 70vh">
+              <!-- Procucts are inserted here -->
             </div>
-          </div>
-        </div>
-        <!-- <hr
-          style="border: none; border-top: 1px solid #e4e4e4; margin: 20px 0"
-        /> -->
-        <div class="row" style="float: right; align-items: center">
-          <span style="width: auto; margin-right: 15px"
-            >Total price:
-            <h5 class='totalPrice' style="display: inline; margin: 0"></h5>
-          </span>
-          <button type="submit" class="waves-effect waves-light btn-large submitOrder disabled">Submit</button>
-        </div>
+                  <div class="row" style="float: right; align-items: center">
+        <span style="width: auto; margin-right: 15px"
+          >Total price:
+          <h5 class='totalPrice' style="display: inline; margin: 0"></h5>
+        </span>
+        <button type="submit" class="waves-effect waves-light btn-large submitOrder disabled">Submit</button>
       </div>
+
+      </div>
+      <!-- <div class="row" style="float: right; align-items: center">
+        <span style="width: auto; margin-right: 15px"
+          >Total price:
+          <h5 class='totalPrice' style="display: inline; margin: 0"></h5>
+        </span>
+        <button type="submit" class="waves-effect waves-light btn-large submitOrder disabled">Submit</button>
+      </div> -->
+        </div>
       </form>
     </main>
   </body>
